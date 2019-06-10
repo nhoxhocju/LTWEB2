@@ -20,7 +20,7 @@
                                         </p></b>
                                 </a>
                                 <i class="fa fa-clock-o" aria-hidden="true">
-                                </i> {{dateformat date-post "dd/mm/yyyy"}} |
+                                </i> {{dateformat date_post "dd/mm/yyyy"}} |
                                 <i class="fa fa-eye" aria-hidden="true"></i> {{views}}
                             </div>
                         </li>
@@ -48,7 +48,7 @@
                                         </p></b>
                                 </a>
                                 <i class="fa fa-clock-o" aria-hidden="true">
-                                </i> {{dateformat date-post "dd/mm/yyyy"}} |
+                                </i> {{dateformat date_post "dd/mm/yyyy"}} |
                                 <i class="fa fa-eye" aria-hidden="true"></i> {{views}}
                             </div>
                         </li>
@@ -93,7 +93,7 @@
                         {{#each lcCategories}}
                         <li class="list-group-item"><a href="/single_post/{{id}}"><i class="fa fa-home"
                                     aria-hidden="true"></i>
-                                {{Name}}</li></a>
+                                {{name}}</li></a>
                         {{/each}}
                     </ul>
                 </div>

@@ -21,17 +21,15 @@ module.exports = function (app) {
             }
             var entity = req.body;
             entity.image = '/public/image/' + req.file.filename;
-            entity.id_author = '1';
-
-            console.log(entity);
-
+            entity.id_author = req.user.id;
+            
 
             panelModel.add(entity, (err, post) => {
                 if (err) return res.json({ error: err.message });
                 console.log(post);
             });
-            res.render('vwPanel/insert',{
-                success : 'Thêm thành công bài viết!'
+            res.render('vwPanel/insert', {
+                success: 'Thêm thành công bài viết!'
             });
         })
     })

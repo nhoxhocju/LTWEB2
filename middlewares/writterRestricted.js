@@ -4,5 +4,9 @@ module.exports = (req, res, next) =>{
         var retUrl = req.originalUrl;
         return res.redirect(`/account/login?retUrl=${retUrl}`);
     }
+    if(req.user.userRight!= '2'){
+        return res.redirect('/404');
+    }
+
     next();
 }

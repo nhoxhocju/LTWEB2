@@ -1,4 +1,68 @@
 <script src="https://cdn.ckeditor.com/4.11.4/standard/ckeditor.js"></script>
+{{#section 'js'}}
+
+<script>
+    $.validator.addMethod("valueNotEquals", function (value, element, arg) {
+        return arg !== value;
+    }, "Value must not equal arg.");
+
+    // configure your validation
+
+</script>
+
+<script>
+    $(function () {
+
+        $('#insertPostFrom').validate({
+            rules: {
+                title: {
+                    required: true
+                },
+                id_category: {
+                    valueNotEquals: "default"
+                },
+                image: {
+                    required: true
+                },
+                tag: {
+                    required: true
+                },
+                date_post: {
+                    required: true
+                },
+            },
+            messages: {
+                title: {
+                    required: 'Bạn vui lòng nhập tiêu đề bài viết.'
+                },
+                image: {
+                    required: 'Bạn vui lòng upload hình ảnh.'
+                },
+                tag: {
+                    required: 'Bạn vui lòng nhập tag.'
+                },
+                date_post: {
+                    required: 'Bạn vui lòng nhập ngày đăng.'
+                },
+                id_category: {
+                    valueNotEquals: "Vui lòng chọn chuyên mục."
+                }
+            },
+            errorElement: 'small',
+            errorClass: 'help-block text-danger',
+            validClass: 'is-valid',
+            highlight: function (e) {
+                $(e).removeClass('is-valid').addClass('is-invalid');
+            },
+            unhighlight: function (e) {
+                $(e).removeClass('is-invalid').addClass('is-valid');
+            },
+        });
+
+    })
+</script>
+{{/section}}
+
 
 <div class="container">
     {{#if success}}
@@ -18,37 +82,39 @@
 
                 </div>
                 <div class="card-body">
-                    <form action="/panel/insert" method="POST" enctype="multipart/form-data">
+                    <form action="/panel/insert" method="POST" enctype="multipart/form-data" id="insertPostFrom">
                         <div class="form-group">
                             <label>Tiêu đề bài viết</label>
-                            <input type="text" class="form-control" id="title" placeholder="" name="title">
+                            <input required type="text" class="form-control" id="title" placeholder="" name="title">
 
                         </div>
                         <div class="form-group">
                             <label>Ảnh bài viết</label>
-                            <input type="file" class="form-control" id="image" placeholder="" name="image">
+                            <input required type="file" class="form-control" id="image" placeholder="" name="image">
                         </div>
                         <div class="form-group">
                             <label>Chuyên mục</label>
-                            <select class="custom-select" id="id_category" name="id_category">
-                                <option selected>Chọn chuyên mục</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
+                            <select required class="custom-select" id="id_category" name="id_category">
+                                <option value="default">Chọn chuyên mục</option>
+                                {{#each this.category}}
+                                <option value="{{id}}">{{name}}</option>
+                                {{/each}}
+
                             </select>
                         </div>
-                        
+
                         <div class="form-group">
                             <label>Ngày đăng</label>
-                            <input type="date" class="form-control" id="date-post" placeholder="" name="date-post">
+                            <input required type="date" class="form-control" id="date_post" placeholder=""
+                                name="date_post">
                         </div>
                         <div class="form-group">
                             <label for="exampleFormControlTextarea1">Nội dung bài viết</label>
-                            <textarea name="content" id="editor"></textarea>
+                            <textarea required name="content" id="editor"></textarea>
                         </div>
                         <div class="form-group">
                             <label>Tag</label>
-                            <input type="text" class="form-control" id="tag" placeholder="" name="tag">
+                            <input required type="text" class="form-control" id="tag" placeholder="" name="tag">
                         </div>
                         <div class="form-check mb-3">
                             <input type="checkbox" value="1" class="form-check-input" id="hotNews" name="hotNews">
@@ -65,6 +131,7 @@
                     Quản trị
                 </div>
                 <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><a href="/panel/">Trang quản lý bài viết</a></li>
                     <li class="list-group-item"><a href="/panel/insert">Thêm bài viết</a></li>
                     <li class="list-group-item"><a href="/panel/update">Sửa bài viết</a></li>
                     <li class="list-group-item"><a href="/panel/delete">Xóa bài viết</a></li>
