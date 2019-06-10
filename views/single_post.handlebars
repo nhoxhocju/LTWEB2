@@ -1,0 +1,38 @@
+<div class="container">
+
+    <div class="card shadow mt-5 mb-5">
+        <div class="card-header">
+            <div class="category pt-3">
+                <a href="/">HOME</a>
+                <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                <a href="/single_post">{{single.name}}</a>
+            </div>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                <div class="title pl-5 pr-5">
+                    <h1>{{single.title}}</h1>
+                    <p class="info_post p-3">
+                        <i class="fa fa-user-circle" aria-hidden="true"></i> Bảo Lương |
+                        <i class="fa fa-clock-o" aria-hidden="true"></i> Ngày đăng: {{dateformat single.date-post "dd/mm/yyyy"}} |
+                        <i class="fa fa-eye" aria-hidden="true"></i> Lượt xem: {{single.views}}
+                    </p>
+                    <div class="image">
+                        <img src="{{single.image}}" alt="" width="100%" class="rounded">
+                    </div>
+                </div>
+                <div class="content pt-4 pl-5 pr-5 pb-5">
+                    <p>
+
+                        {{single.content}}
+                    </p>
+                </div>
+                <div class="tag pl-5">
+                    <p>Nhãn Tag: {{single.tag}}</p>
+                </div>
+            </li>
+
+        </ul>
+    </div>
+
+</div>

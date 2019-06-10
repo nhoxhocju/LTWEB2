@@ -1,0 +1,106 @@
+<div class="container pt-3">
+
+    <div class="row pt-3">
+        <div class="main-left col-sm-8 float-left ">
+            <div class="new-news pb-3">
+                <div class="card shadow">
+                    <div class="card-header">
+                        <i class="fa fa-newspaper-o" aria-hidden="true"></i> TIN MỚI
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        {{#each this.index}}
+                        <li class="list-group-item">
+                            <div class="new-news mb-2">
+                                <a href="/single_post/{{id}}">
+                                    <div class="image col-sm-4 float-left" style="background-color:white">
+                                        <img src="{{image}}" alt="" width="100%" class="rounded">
+                                    </div>
+                                    <div class="infomation col-sm-8 float-left">
+                                        <p><b>{{title}}
+                                        </p></b>
+                                </a>
+                                <i class="fa fa-clock-o" aria-hidden="true">
+                                </i> {{dateformat date-post "dd/mm/yyyy"}} |
+                                <i class="fa fa-eye" aria-hidden="true"></i> {{views}}
+                            </div>
+
+                </div>
+                </li>
+                {{/each}}
+
+                </ul>
+            </div>
+        </div>
+        <div class="new-news pb-3">
+            <div class="card shadow">
+                <div class="card-header">
+                    <i class="fa fa-newspaper-o" aria-hidden="true"></i> TIN XEM NHIỀU
+                </div>
+                <ul class="list-group list-group-flush">
+                    {{#each this.topView}}
+                    <li class="list-group-item">
+                        <div class="top-views mb-2">
+                            <a href="/single_post/{{id}}">
+                                <div class="image col-sm-4 float-left" style="background-color:white">
+                                    <img src="{{image}}" alt="" width="100%" class="rounded">
+                                </div>
+                                <div class="infomation col-sm-8 float-left">
+                                    <p><b>{{title}}
+                                    </p></b>
+                            </a>
+                            <i class="fa fa-clock-o" aria-hidden="true">
+                            </i> {{dateformat date-post "dd/mm/yyyy"}} |
+                            <i class="fa fa-eye" aria-hidden="true"></i> {{views}}
+                        </div>
+                    </li>
+                    {{/each}}
+
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="main-right col-sm-4">
+        <div class="hot-news pt-2">
+            <div class="card shadow">
+                <div class="card-header col-sm-12">
+                    <i class="fa fa-newspaper-o" aria-hidden="true"></i> TIN NỔI BẬT
+                </div>
+                <ul class="list-group list-group-flush col-sm-12">
+                    {{#each this.index}}
+                    <li class="list-group-item col-sm-12">
+                        <a href="/single_post/{{id}}">
+                            <div class="image col-sm-4 float-left pt-2" style="background-color:white">
+                                <img src="{{image}}" alt="" width="100%" height="100%" class="rounded">
+                            </div>
+                            <div class="infomation col-sm-8 float-left">
+                                <p><b>{{title}}
+                                </p></b>
+
+                            </div>
+                        </a>
+                    </li>
+                    {{/each}}
+
+                </ul>
+            </div>
+        </div>
+        <div class="category pt-3">
+            <div class="card shadow">
+                <div class="card-header">
+                    <i class="fa fa-list-alt" aria-hidden="true"></i>
+                    THỂ LOẠI
+                </div>
+                <ul class="list-group list-group-flush ">
+                    <li class="list-group-item"><a href="/single_post"><i class="fa fa-home" aria-hidden="true"></i>
+                            Cras justo odio</li></a>
+                    <li class="list-group-item"><a href="/single_post"><i class="fa fa-home" aria-hidden="true"></i>
+                            Cras justo odio</li></a>
+                    <li class="list-group-item"><a href="/single_post"><i class="fa fa-home" aria-hidden="true"></i>
+                            Cras justo odio</li></a>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</div>
+</div>
