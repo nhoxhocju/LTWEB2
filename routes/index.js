@@ -16,7 +16,7 @@ router.get("/", (req, res) => {
             });
         }).catch(error => {
             console.log(error);
-            res.end('Ko thể kn database');
+            res.end('Lỗi');
         })
     })
 

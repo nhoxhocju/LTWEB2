@@ -6,6 +6,9 @@ module.exports = {
     },
     updateView: id =>{
         // var views = views + 1;
-        return db.update('UPDATE post SET views = views + 1 WHERE id = ' +id);
+        return db.updateView('UPDATE post SET views = views + 1 WHERE id = ' +id);
+    },
+    selectView : id =>{
+        return db.load('select views from post where id = ' + id);
     }
 };

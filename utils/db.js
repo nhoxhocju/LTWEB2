@@ -19,15 +19,15 @@ module.exports = {
         });
     },
 
-    add: (tableName, entity) =>{
-        return new Promise((resolve, reject) =>{
+    add: (tableName, entity) => {
+        return new Promise((resolve, reject) => {
             var connection = createConnection();
             var sql = `insert into ${tableName} set ?`;
             connection.connect();
-            connection.query(sql, entity, (error, results)=>{
-                if(error){
+            connection.query(sql, entity, (error, results) => {
+                if (error) {
                     reject(error);
-                }else{
+                } else {
                     resolve(results.insertId);
                 }
                 connection.end();
@@ -35,18 +35,51 @@ module.exports = {
         });
     },
 
-    update: sql => {
+    updateView: (sql) =>{
         return new Promise((resolve, reject) => {
             var connection = createConnection();
+            // var sql = `update ${tableName} set views = ? where ${idField} = ?`;
             connection.connect();
             connection.query(sql, (error, results, fields) => {
                 if (error) {
-                    console.log(error.sqlMessage);
+                    reject(error);
                 } else {
                     resolve(results.changedRows);
                 }
                 connection.end();
-            })
+            });
         });
-    }
+    },
+
+    update: (tableName, idField, entity, id) => {
+        return new Promise((resolve, reject) => {
+            var connection = createConnection();
+            var sql = `update ${tableName} set ? where ${idField} = ?`;
+            connection.connect();
+            connection.query(sql, [entity, id], (error, results, fields) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve(results.changedRows);
+                }
+                connection.end();
+            });
+        });
+    },
+
+    delete: (tableName, idField, id) => {
+        return new Promise((resolve, reject) => {
+            var connection = createConnection();
+            var sql = `delete from ${tableName} where ${idField} = ?`;
+            connection.connect();
+            connection.query(sql, id, (error, results, fields) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve(results.affectedRows);
+                }
+                connection.end();
+            });
+        });
+    },
 }

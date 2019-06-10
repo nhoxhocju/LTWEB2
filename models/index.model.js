@@ -6,5 +6,8 @@ module.exports = {
     },
     topView : ()=>{
         return db.load('select * from post order by views desc');
+    },
+    selectAllCategory: ()=>{
+        return db.load('select * from category');
     }
 };

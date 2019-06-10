@@ -1,0 +1,71 @@
+{{#section 'js'}}
+
+
+
+<script>
+    $(function () {
+        $('#loginForm').validate({
+            rules: {
+                email: {
+                    required: true,
+                    email: true
+                },
+                password: {
+                    required: true
+                },
+            },
+            messages: {
+                email: {
+                    required: 'Bạn vui lòng nhập email.',
+                    email: 'Bạn vui lòng nhập đúng định dạng email.'
+                },
+                password: {
+                    required: 'Bạn vui lòng nhập password.'
+                },
+            },
+            errorElement: 'small',
+            errorClass: 'help-block text-danger',
+            validClass: 'is-valid',
+            highlight: function (e) {
+                $(e).removeClass('is-valid').addClass('is-invalid');
+            },
+            unhighlight: function (e) {
+                $(e).removeClass('is-invalid').addClass('is-valid');
+            },
+        });
+
+    })
+</script>
+{{/section}}
+
+
+<div class="container mb-5 mt-5">
+    {{#if err_message}}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        {{err_message}}
+    </div>
+    {{/if}}
+    <form novalidate action="" method="POST" id="loginForm">
+        <div class="card shadow mt-5">
+            <h5 class="card-header text-center">
+                Login
+            </h5>
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="">Email:</label>
+                    <input required type="email" id="email" class="form-control" placeholder="" name="email">
+                </div>
+                <div class="form-group">
+                    <label for="">Password:</label>
+                    <input required type="password" id="password" class="form-control" placeholder="" name="password">
+                </div>
+            </div>
+            <div class="card-footer">
+                <button type="submit" class="btn btn-success btn-block">Login</button>
+            </div>
+        </div>
+    </form>
+</div>

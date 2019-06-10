@@ -7,25 +7,25 @@ var singlePost = require('../models/single_post.model');
 
 router.get('/:id', (req, res) => {
     var id = req.params.id;
-    singlePost.single(id)
-        .then(rows => {
-            if (rows.length > 0) {
-                single = rows[0];
+    singlePost.updateView(id);
+    singlePost.single(id).then(rows => {
+        singlePost.selectView(id).then(rows2 => {
+            if (rows2.length > 0) {
                 res.render('single_post', {
                     single: rows[0],
+                    view : rows2[0]
                 });
             } else {
-                res.render('404',{
-                    layout:false
-                });
+                res.render('404');
             }
         })
-    singlePost.updateView(id)
+
+    })
 
 })
 router.get('/', (req, res) => {
-    res.render('404',{
-        layout:false
+    res.render('404', {
+        layout: false
     });
 })
 
