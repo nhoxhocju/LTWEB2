@@ -21,6 +21,9 @@ app.set('view engine', 'handlebars');
 var indexPage = require('./routes/index');
 app.use('/', indexPage);
 
+var singlePostRoutes = require('./routes/single_post');
+app.use('/single_post', singlePostRoutes);
+
 
 var port = 3000;
 
