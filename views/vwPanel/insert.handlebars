@@ -1,0 +1,62 @@
+<script src="https://cdn.ckeditor.com/4.11.4/standard/ckeditor.js"></script>
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-sm-9">
+            <div class="card shadow mt-5 mb-5">
+                <div class="card-header">
+                    THÊM BÀI VIẾT
+                </div>
+                <div class="card-body">
+                    <form>
+                        <div class="form-group">
+                            <label>Tiêu đề bài viết</label>
+                            <input type="text" class="form-control" id="exampleInputEmail1" placeholder="">
+
+                        </div>
+                        <div class="form-group">
+                            <label>Ảnh bài viết</label>
+                            <input type="file" class="form-control" id="exampleInputPassword1" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label>Chuyên mục</label>
+                            <select class="custom-select">
+                                <option selected>Chọn chuyên mục</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Ngày đăng</label>
+                            <input type="date" class="form-control" id="exampleInputPassword1" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlTextarea1">Nội dung bài viết</label>
+                            <textarea name="content" id="editor"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="card shadow mt-5 mb-5">
+                <div class="card-header">
+                    Quản trị
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><a href="/panel/insert">Thêm bài viết</a></li>
+                    <li class="list-group-item"><a href="/panel/update">Sửa bài viết</a></li>
+                    <li class="list-group-item"><a href="/panel/delete">Xóa bài viết</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+    CKEDITOR.replace('editor');
+
+</script>
