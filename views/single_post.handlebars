@@ -1,3 +1,5 @@
+<script src="https://cdn.ckeditor.com/4.11.4/standard/ckeditor.js"></script>
+
 <div class="container">
 
     <div class="card shadow mt-5 mb-5">
@@ -17,15 +19,12 @@
                         <i class="fa fa-clock-o" aria-hidden="true"></i> Ngày đăng: {{dateformat single.date-post "dd/mm/yyyy"}} |
                         <i class="fa fa-eye" aria-hidden="true"></i> Lượt xem: {{view.views}}
                     </p>
-                    <div class="image">
-                        <img src="{{single.image}}" alt="" width="100%" class="rounded">
+                    <div class="image text-center">
+                        <img src="{{single.image}}" alt="" width="500px" class="rounded">
                     </div>
                 </div>
                 <div class="content pt-4 pl-5 pr-5 pb-5">
-                    <p>
-
-                        {{single.content}}
-                    </p>
+                        {{{single.content}}}
                 </div>
                 <div class="tag pl-5">
                     <p>Nhãn Tag: {{single.tag}}</p>

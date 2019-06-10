@@ -1,40 +1,58 @@
 <script src="https://cdn.ckeditor.com/4.11.4/standard/ckeditor.js"></script>
 
 <div class="container">
+    {{#if success}}
+    <div class="alert alert-success alert-dismissible fade show mt-5" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        {{success}}
+    </div>
+    {{/if}}
     <div class="row">
 
         <div class="col-sm-9">
             <div class="card shadow mt-5 mb-5">
                 <div class="card-header">
                     THÊM BÀI VIẾT
+
                 </div>
                 <div class="card-body">
-                    <form>
+                    <form action="/panel/insert" method="POST" enctype="multipart/form-data">
                         <div class="form-group">
                             <label>Tiêu đề bài viết</label>
-                            <input type="text" class="form-control" id="exampleInputEmail1" placeholder="">
+                            <input type="text" class="form-control" id="title" placeholder="" name="title">
 
                         </div>
                         <div class="form-group">
                             <label>Ảnh bài viết</label>
-                            <input type="file" class="form-control" id="exampleInputPassword1" placeholder="">
+                            <input type="file" class="form-control" id="image" placeholder="" name="image">
                         </div>
                         <div class="form-group">
                             <label>Chuyên mục</label>
-                            <select class="custom-select">
+                            <select class="custom-select" id="id_category" name="id_category">
                                 <option selected>Chọn chuyên mục</option>
                                 <option value="1">One</option>
                                 <option value="2">Two</option>
                                 <option value="3">Three</option>
                             </select>
                         </div>
+                        
                         <div class="form-group">
                             <label>Ngày đăng</label>
-                            <input type="date" class="form-control" id="exampleInputPassword1" placeholder="">
+                            <input type="date" class="form-control" id="date-post" placeholder="" name="date-post">
                         </div>
                         <div class="form-group">
                             <label for="exampleFormControlTextarea1">Nội dung bài viết</label>
                             <textarea name="content" id="editor"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Tag</label>
+                            <input type="text" class="form-control" id="tag" placeholder="" name="tag">
+                        </div>
+                        <div class="form-check mb-3">
+                            <input type="checkbox" value="1" class="form-check-input" id="hotNews" name="hotNews">
+                            <label class="form-check-label" for="exampleCheck1">Tin tức nổi bật</label>
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>

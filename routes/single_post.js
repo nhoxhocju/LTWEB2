@@ -10,7 +10,7 @@ router.get('/:id', (req, res) => {
     singlePost.updateView(id);
     singlePost.single(id).then(rows => {
         singlePost.selectView(id).then(rows2 => {
-            if (rows2.length > 0) {
+            if (rows.length > 0) {
                 res.render('single_post', {
                     single: rows[0],
                     view : rows2[0]

@@ -9,11 +9,14 @@ var bodyParser = require('body-parser');
 var app = express();
 
 app.use(express.static('public'));
+app.use('/public',express.static('public'));
+
 
 require('./middlewares/session')(app);
 require('./middlewares/passport')(app);
 app.use(require('./middlewares/auth.mdw'));
 app.use(require('./middlewares/category.mdw'));
+require('./middlewares/upload')(app);
 
 app.engine('handlebars', exphbs({
 	defaultLayout: 'main',
@@ -43,9 +46,6 @@ app.use('/account', account);
 
 var port = 3000;
 
-// app.get('/', function(req, res){
-// 	res.render('home');
-// })
 app.use(function (req, res, next) {
 	res.status(404);
 	if (req.accepts('html')) {

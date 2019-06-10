@@ -1,16 +1,35 @@
 <div class="container">
     <div class="row">
-        
+
         <div class="col-sm-9">
             <div class="card shadow mt-5 mb-5">
                 <div class="card-header">
-                    TRANG QUẢN TRỊ
+                    <div class="row text-right">
+                        <div class="col-sm-5 panel text-left">TRANG QUẢN TRỊ</div>
+                        <div class="col-sm-7 text-right">
+                            <a class="btn btn-outline-success btn-sm" href="/panel/insert" role="button" title="Add">
+                                <i class="fa fa-plus" aria-hidden="true"></i>
+                                Add Category
+                            </a></div>
+                    </div>
+
                 </div>
-                <div class="card-body">
-                    <h5 class="card-title">Special title treatment</h5>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
+                <ul class="list-group list-group-flush">
+                    {{#each panel}}
+                    <div class="edit-item">
+                        <li class="list-group-item"><a href="/single_post/{{id}}">{{title}}   </a>
+
+                        <a class="btn btn-primary btn-sm" href="/panel/update" role="button" title="Edit">
+                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                        </a>
+                        <a class="btn btn-danger btn-sm" href="/panel/delete" role="button" title="Delete">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+
+                        </a>
+                        </li>
+                    </div>
+                    {{/each}}
+                </ul>
             </div>
         </div>
         <div class="col-sm-3">
