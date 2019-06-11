@@ -4,8 +4,8 @@
         <div class="col-sm-9">
             <div class="card shadow mt-5 mb-5">
                 <div class="card-header">
-                        <div class="panel text-center">DANH SÁCH BÀI VIẾT CỦA BẠN</div>
-                        {{!-- <div class="col-sm-7 text-right">
+                    <div class="panel text-center font-weight-bold">DANH SÁCH BÀI VIẾT CỦA BẠN</div>
+                    {{!-- <div class="col-sm-7 text-right">
                             <a class="btn btn-outline-success btn-sm" href="/panel/insert" role="button" title="Add">
                                 <i class="fa fa-plus" aria-hidden="true"></i>
                                 Add Category
@@ -36,9 +36,9 @@
                             <th scope="col">Tiêu đề bài viết</th>
                             <th scope="col" class="text-right">
                                 <a class="btn btn-outline-success btn-sm" href="/panel/insert" role="button"
-                                    title="Add">
+                                    title="Thêm bài viết">
                                     <i class="fa fa-plus" aria-hidden="true"></i>
-                                    Add
+                                    Thêm
                                 </a>
             </div>
             </th>
@@ -50,7 +50,7 @@
                     <th class="text-center" scope="row">{{id}}</th>
                     <td><a href="/single_post/{{id}}">{{title}}</a></td>
                     <td class="text-right">
-                        <a class="btn btn-primary btn-sm" href="update" role="button" title="Edit">
+                        <a class="btn btn-primary btn-sm" href="update/{{id}}" role="button" title="Sửa">
                             <i class="fa fa-pencil" aria-hidden="true"></i>
                         </a>
                     </td>
@@ -62,13 +62,15 @@
     </div>
     <div class="col-sm-3">
         <div class="card shadow mt-5 mb-5">
-            <div class="card-header">
-                Quản trị
+            <div class="card-header text-center font-weight-bold">
+                QUẢN TRỊ BÀI VIẾT
             </div>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item"><a href="/panel/insert">Thêm bài viết</a></li>
-                <li class="list-group-item"><a href="/panel/update">Sửa bài viết</a></li>
-                <li class="list-group-item"><a href="/panel/delete">Xóa bài viết</a></li>
+                <li class="list-group-item text-center"><a href="/panel/"><i class="fa fa-file-text" aria-hidden="true"></i>
+                        Trang bài viết</a></li>
+                <li class="list-group-item text-center"><a class="" href="/panel/insert"><i class="fa fa-plus"
+                            aria-hidden="true"></i>
+                        Thêm bài viết</a></li>
             </ul>
         </div>
     </div>

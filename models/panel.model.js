@@ -9,5 +9,8 @@ module.exports = {
     },
     selectAllCategory : () => {
         return db.load('select * from category');
+    },
+    selectPostByAuthorAndId: (idAuthor, id) =>{
+        return db.load(`select * from post where id_author = ${idAuthor} and id = ${id}`);
     }
 };

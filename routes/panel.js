@@ -17,21 +17,28 @@ router.get('/', writterRetricted, (req, res, next) => {
         res.render('vwPanel/panel', {
             panel: rows
         });
-
     })
 
 })
 
 router.get('/insert', writterRetricted, (req, res, next) => {
     panelModel.selectAllCategory().then(rows => {
-        res.render('vwPanel/insert',{
+        res.render('vwPanel/insert', {
             category: rows
         });
     })
 })
 
-router.get('/update', writterRetricted, (req, res, next) => {
-    res.render('vwPanel/update');
+router.get('/update/:id', writterRetricted, (req, res, next) => {
+    var id = req.params.id;
+    panelModel.selectPostByAuthorAndId(req.user.id, id).then(rows => {
+        panelModel.selectAllCategory().then(rows2 => {
+            res.render('vwPanel/update', {
+                post: rows,
+                categories: rows2
+            });
+        });
+    });
 })
 
 router.get('/delete', writterRetricted,
