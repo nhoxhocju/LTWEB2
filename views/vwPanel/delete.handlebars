@@ -1,27 +1,37 @@
 <div class="container">
     <div class="row">
-        
+
         <div class="col-sm-9">
             <div class="card shadow mt-5 mb-5">
-                <div class="card-header">
-                    TRANG QUẢN TRỊ
+                <div class="card-header text-center font-weight-bold">
+                    XÓA BÀI VIẾT
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title">Special title treatment</h5>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                    <form action="" method="POST">
+                        <p class="card-text text-center">Bạn đã yêu cầu xóa bài viết!</p>
+                        <p class="card-text text-center">Lưu ý: Xóa bài viết sẽ không thể khôi phục.</p>
+                        <tbody>
+                            <div class="text-center">
+                                <a class="btn btn-secondary text-center" role="button" href="/panel">Hủy</a>
+                                <button type="submit" class="btn btn-danger text-center">Xóa</button>
+                            </div>
+                        </tbody>
+
+                    </form>
                 </div>
             </div>
         </div>
         <div class="col-sm-3">
             <div class="card shadow mt-5 mb-5">
-                <div class="card-header">
-                    Quản trị
+                <div class="card-header text-center font-weight-bold">
+                    QUẢN TRỊ BÀI VIẾT
                 </div>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item"><a href="/panel/insert">Thêm bài viết</a></li>
-                    <li class="list-group-item"><a href="/panel/update">Sửa bài viết</a></li>
-                    <li class="list-group-item"><a href="/panel/delete">Xóa bài viết</a></li>
+                    <li class="list-group-item text-center"><a href="/panel"><i class="fa fa-file-text"
+                                aria-hidden="true"></i> Trang bài viết</a></li>
+                    <li class="list-group-item text-center"><a class="" href="/panel/insert"><i class="fa fa-plus"
+                                aria-hidden="true"></i>
+                            Thêm bài viết</a></li>
                 </ul>
             </div>
         </div>

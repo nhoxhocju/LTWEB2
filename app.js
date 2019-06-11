@@ -14,9 +14,11 @@ app.use('/public',express.static('public'));
 
 require('./middlewares/session')(app);
 require('./middlewares/passport')(app);
+require('./middlewares/upload')(app);
+
 app.use(require('./middlewares/auth.mdw'));
 app.use(require('./middlewares/category.mdw'));
-require('./middlewares/upload')(app);
+
 
 app.engine('handlebars', exphbs({
 	defaultLayout: 'main',
@@ -24,6 +26,7 @@ app.engine('handlebars', exphbs({
 		section: hbs_sections()
 	}
 }));
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -44,8 +47,6 @@ app.use('/panel', panelPage);
 var account = require('./routes/account');
 app.use('/account', account);
 
-var port = 3000;
-
 app.use(function (req, res, next) {
 	res.status(404);
 	if (req.accepts('html')) {
@@ -60,10 +61,8 @@ app.get('/error', function (req, res) {
 	});
 })
 
+var port = 3000;
 
-app.use('/user/:id', function (req, res, next) {
-	res.send('USER')
-})
 app.listen(port, function () {
 	console.log(`Server started on port ${port}`);
 });

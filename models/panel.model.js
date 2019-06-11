@@ -12,5 +12,8 @@ module.exports = {
     },
     selectPostByAuthorAndId: (idAuthor, id) =>{
         return db.load(`select * from post where id_author = ${idAuthor} and id = ${id}`);
-    }
+    },
+    deletePostByAuthorAndId: (idAuthor, idPost) =>{
+        return db.delete('post',('id_author', 'id'), (idAuthor, idPost));
+    },
 };

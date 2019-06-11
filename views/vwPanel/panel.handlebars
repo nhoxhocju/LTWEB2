@@ -1,34 +1,18 @@
 <div class="container">
+    {{#if success}}
+    <div class="alert alert-success alert-dismissible fade show mt-5" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        {{success}}
+    </div>
+    {{/if}}
     <div class="row">
-
         <div class="col-sm-9">
             <div class="card shadow mt-5 mb-5">
                 <div class="card-header">
                     <div class="panel text-center font-weight-bold">DANH SÁCH BÀI VIẾT CỦA BẠN</div>
-                    {{!-- <div class="col-sm-7 text-right">
-                            <a class="btn btn-outline-success btn-sm" href="/panel/insert" role="button" title="Add">
-                                <i class="fa fa-plus" aria-hidden="true"></i>
-                                Add Category
-                            </a>
-                        </div> --}}
-
                 </div>
-                {{!-- <ul class="list-group list-group-flush">
-                    {{#each panel}}
-                    <div class="edit-item">
-                        <li class="list-group-item"><a href="/single_post/{{id}}">{{title}}   </a>
-
-                        <a class="btn btn-primary btn-sm" href="/panel/update" role="button" title="Edit">
-                            <i class="fa fa-pencil" aria-hidden="true"></i>
-                        </a>
-                        <a class="btn btn-danger btn-sm" href="/panel/delete" role="button" title="Delete">
-                            <i class="fa fa-trash" aria-hidden="true"></i>
-
-                        </a>
-                        </li>
-                    </div>
-                    {{/each}}
-                </ul> --}}
                 <table class="table table-hover">
                     <thead>
                         <tr>
@@ -50,8 +34,11 @@
                     <th class="text-center" scope="row">{{id}}</th>
                     <td><a href="/single_post/{{id}}">{{title}}</a></td>
                     <td class="text-right">
-                        <a class="btn btn-primary btn-sm" href="update/{{id}}" role="button" title="Sửa">
+                        <a class="btn btn-primary btn-sm" href="/panel/update/{{id}}" role="button" title="Sửa">
                             <i class="fa fa-pencil" aria-hidden="true"></i>
+                        </a>
+                        <a class="btn btn-danger btn-sm" href="/panel/delete/{{id}}" role="button" title="Xóa">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
                         </a>
                     </td>
                 </tr>
@@ -66,8 +53,8 @@
                 QUẢN TRỊ BÀI VIẾT
             </div>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item text-center"><a href="/panel/"><i class="fa fa-file-text" aria-hidden="true"></i>
-                        Trang bài viết</a></li>
+                <li class="list-group-item text-center"><a href="/panel"><i class="fa fa-file-text"
+                            aria-hidden="true"></i> Trang bài viết</a></li>
                 <li class="list-group-item text-center"><a class="" href="/panel/insert"><i class="fa fa-plus"
                             aria-hidden="true"></i>
                         Thêm bài viết</a></li>

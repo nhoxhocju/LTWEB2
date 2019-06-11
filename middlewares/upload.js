@@ -28,9 +28,8 @@ module.exports = function (app) {
                 if (err) return res.json({ error: err.message });
                 console.log(post);
             });
-            res.render('vwPanel/insert', {
-                success: 'Thêm thành công bài viết!'
-            });
+            var success = 'Thêm thành công bài viết!';
+            res.redirect('/panel/insert?valid=' + success);
         })
     })
 }
