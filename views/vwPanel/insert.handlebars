@@ -30,6 +30,9 @@
                 date_post: {
                     required: true
                 },
+                short_content: {
+                    required: true
+                }
             },
             messages: {
                 title: {
@@ -46,6 +49,9 @@
                 },
                 id_category: {
                     valueNotEquals: "Vui lòng chọn chuyên mục."
+                },
+                short_content:{
+                    required: 'Bạn vui lòng nhập nội dung tóm tắt.'
                 }
             },
             errorElement: 'small',
@@ -107,6 +113,11 @@
                             <label>Ngày đăng</label>
                             <input required type="date" class="form-control" id="date_post" placeholder=""
                                 name="date_post">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlTextarea1">Nội dung tóm tắt</label>
+                            <textarea required class="form-control" maxlength="180" name="short_content" id="short_content"></textarea>
+                            <small class="pl-2">Độ dài tối đa: 180 ký tự.</small>
                         </div>
                         <div class="form-group">
                             <label for="exampleFormControlTextarea1">Nội dung bài viết</label>
