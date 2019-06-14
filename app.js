@@ -14,11 +14,10 @@ app.use('/public',express.static('public'));
 
 require('./middlewares/session')(app);
 require('./middlewares/passport')(app);
-require('./middlewares/upload')(app);
+// require('./middlewares/upload')(app);
 
 app.use(require('./middlewares/auth.mdw'));
 app.use(require('./middlewares/category.mdw'));
-
 
 app.engine('handlebars', exphbs({
 	defaultLayout: 'main',

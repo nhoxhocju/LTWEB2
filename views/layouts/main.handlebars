@@ -31,9 +31,24 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                    {{#each lcCategories}}
+                    {{!-- {{#each lcCategories}}
                     <li class="nav-item active">
                         <a class="nav-link" href="/category/{{id}}">{{name}} <span class="sr-only">(current)</span></a>
+                    </li>
+                    {{/each}} --}}
+                    {{#each lcCategories}}
+                    <li class="nav-item dropdown">
+                        {{!-- {{#each lcCategories}} --}}
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{name}}
+                        </a>
+                        {{#each lcCategoriesChild}}
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">{{name}}</a>
+                        </div>
+                        {{/each}}
+
                     </li>
                     {{/each}}
                 </ul>

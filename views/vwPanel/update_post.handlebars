@@ -1,19 +1,22 @@
 <script src="https://cdn.ckeditor.com/4.11.4/standard/ckeditor.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+<link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
 {{#section 'js'}}
+
 
 <script>
     $.validator.addMethod("valueNotEquals", function (value, element, arg) {
         return arg !== value;
     }, "Value must not equal arg.");
 
-    // configure your validation
-
 </script>
+
 
 <script>
     $(function () {
 
-        $('#insertPostFrom').validate({
+        $('#updatePostFrom').validate({
             rules: {
                 title: {
                     required: true
@@ -27,12 +30,9 @@
                 tag: {
                     required: true
                 },
-                {{!-- date_post: {
+                date_post: {
                     required: true
-                }, --}}
-                short_content: {
-                    required: true
-                }
+                },
             },
             messages: {
                 title: {
@@ -44,14 +44,11 @@
                 tag: {
                     required: 'Bạn vui lòng nhập tag.'
                 },
-                {{!-- date_post: {
+                date_post: {
                     required: 'Bạn vui lòng nhập ngày đăng.'
-                }, --}}
+                },
                 id_category: {
                     valueNotEquals: "Vui lòng chọn chuyên mục."
-                },
-                short_content:{
-                    required: 'Bạn vui lòng nhập nội dung tóm tắt.'
                 }
             },
             errorElement: 'small',
@@ -84,57 +81,72 @@
         <div class="col-sm-9">
             <div class="card shadow mt-5 mb-5">
                 <div class="card-header text-center font-weight-bold">
-                    THÊM BÀI VIẾT
+                    SỬA BÀI VIẾT
 
                 </div>
                 <div class="card-body">
-                    <form action="/panel/insert" method="POST" enctype="multipart/form-data" id="insertPostFrom">
+                    {{#each post}}
+                    <form action="" method="POST" enctype="multipart/form-data" id="updatePostFrom">
                         <div class="form-group">
                             <label>Tiêu đề bài viết</label>
-                            <input required type="text" class="form-control" id="title" placeholder="" name="title">
+                            <input required type="text" class="form-control" id="title" value="{{title}}" name="title">
 
                         </div>
+
                         <div class="form-group">
                             <label>Ảnh bài viết</label>
+                            <div class="imagePost text-center mb-3">
+                                <img src="{{image}}" alt="" width="200px">
+                            </div>
                             <input required type="file" class="form-control" id="image" placeholder="" name="image">
                         </div>
+                        {{/each}}
                         <div class="form-group">
                             <label>Chuyên mục</label>
                             <select required class="custom-select" id="id_category" name="id_category">
+
                                 <option value="default">Chọn chuyên mục</option>
-                                {{#each this.category}}
+                                {{#each categories}}
                                 <option value="{{id}}">{{name}}</option>
                                 {{/each}}
 
                             </select>
                         </div>
-
+                        {{#each post}}
                         {{!-- <div class="form-group">
                             <label>Ngày đăng</label>
-                            <input required type="date" class="form-control" id="date_post" placeholder=""
+                            <input required id="datepicker" value="{{dateformat date_post "mm/dd/yyyy"}}"
                                 name="date_post">
+
                         </div> --}}
                         <div class="form-group">
                             <label for="exampleFormControlTextarea1">Nội dung tóm tắt</label>
-                            <textarea required class="form-control" maxlength="180" name="short_content" id="short_content"></textarea>
+                            <textarea required class="form-control" maxlength="180" value="" name="short_content" id="short_content"></textarea>
                             <small class="pl-2">Độ dài tối đa: 180 ký tự.</small>
                         </div>
                         <div class="form-group">
                             <label for="exampleFormControlTextarea1">Nội dung bài viết</label>
-                            <textarea required name="content" id="editor"></textarea>
+                            <textarea required name="content" value="" id="editor"></textarea>
+
                         </div>
                         <div class="form-group">
                             <label>Tag</label>
-                            <input required type="text" class="form-control" id="tag" placeholder="" name="tag">
+                            <input required type="text" class="form-control" id="tag" value="{{tag}}" placeholder=""
+                                name="tag">
                         </div>
+
+                        <input name="" id="contentData" class="btn btn-primary" type="text" value="{{content}}">
+                        <input name="" id="short_contentData" class="btn btn-primary" type="text" value="{{short_content}}">
+
+                        {{/each}}
                         {{!-- <div class="form-check mb-3">
                             <input type="checkbox" value="1" class="form-check-input" id="hotNews" name="hotNews">
                             <label class="form-check-label" for="exampleCheck1">Tin tức nổi bật</label>
                         </div> --}}
-                        <div class="text-center">
-                            <button type="submit" class="btn btn-primary">Thêm bài viết</button>
-                        </div>
+
+                        <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
+
                 </div>
             </div>
         </div>
@@ -147,15 +159,30 @@
                     <li class="list-group-item text-center"><a href="/panel"><i class="fa fa-file-text"
                                 aria-hidden="true"></i> Trang bài viết</a></li>
                     <li class="list-group-item text-center"><a class="" href="/panel/insert"><i class="fa fa-plus"
-                                aria-hidden="true"></i>
-                            Thêm bài viết</a></li>
+                                aria-hidden="true"></i> Thêm bài viết</a></li>
+                    <li class="list-group-item text-center"><a class="" href="/panel/update"><i
+                                class="fa fa-pencil-square" aria-hidden="true"></i>
+                            Sửa bài viết</a></li>
                 </ul>
             </div>
         </div>
     </div>
 </div>
+
 <script>
 
     CKEDITOR.replace('editor');
 
+    $('#datepicker').datepicker({
+        uiLibrary: 'bootstrap4'
+    });
+
+    var val = $('#contentData').val();
+    CKEDITOR.instances['editor'].setData(val);
+    $("#contentData").remove();
+
+    var val_short_content = $('#short_contentData').val();
+    $('textarea#short_content').val(val_short_content);
+    $('#short_contentData').remove();
+    
 </script>
