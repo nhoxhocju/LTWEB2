@@ -7,6 +7,7 @@ a {
 
 a:hover {
     color: #6b9eef;
+    text-decoration: underline;
 }
 
 .category {
@@ -49,4 +50,7 @@ footer p {
 }
 .date_view{
     padding: 10px;
+}
+.pagination{
+    margin: 10px;
 }
