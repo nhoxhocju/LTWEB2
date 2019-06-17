@@ -1,0 +1,93 @@
+<div class="container">
+    {{#if success}}
+    <div class="alert alert-success alert-dismissible fade show mt-5" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        {{success}}
+    </div>
+    {{/if}}
+    <div class="row">
+        <div class="col-sm-9">
+            <div class="card shadow mt-5 mb-5">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="panel font-weight-bold col-sm-7 mt-2">{{#if notCat}} {{notCat}} {{else}} Bạn quản lý
+                            thể loại: {{#each cat}} {{name}} {{/each}} {{/if}}</div>
+                        <div class="sort col-sm-5 text-right">
+                            <form class="form-inline" action="/panel" method="POST">
+                                <div class="form-group float-left text-right">
+                                    <select class="custom-select sort-status" id="status" name="status">
+                                        <option value="pendding">Chờ duyệt</option>
+                                        <option value="waitPublish">Chờ xuất bản</option>
+                                        <option value="publish">Đã xuất bản</option>
+                                        <option value="reject">Bị từ chối</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Sort</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Tiêu đề bài viết</th>
+                            <th scope="col">Tình trạng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each post}}
+                        <tr>
+                            <th scope="row">{{id}}</th>
+                            <td><a href="/single_post/{{id}}">{{title}}</a></td>
+
+                            <td>{{status}}</td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+                <hr>
+                <div class="row mx-auto {{showPage}}" id="{{showPage}}">
+                    <ul class="pagination text-center">
+
+                        <li class="page-item {{disPre}}">
+                            <a class="page-link " href="?page={{pre}}" tabindex="-1">Previous</a>
+                        </li>
+
+                        {{#each totalPage}}
+
+                        <li class="page-item {{choose}}">
+
+                            <a class="page-link" href="?page={{page}}">{{page}}</a>
+                        </li>
+                        {{/each}}
+                        <li class="page-item {{disNext}}"><a class="page-link" href="?page={{next}}">Next</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="card shadow mt-5 mb-5">
+                <div class="card-header text-center font-weight-bold">
+                    QUẢN TRỊ BÀI VIẾT
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item text-center"><a href="/panel"><i class="fa fa-file-text"
+                                aria-hidden="true"></i> Tất cả bài viết</a></li>
+                    <li class="list-group-item text-center"><a class="" href="/panel/insert"><i class="fa fa-plus"
+                                aria-hidden="true"></i> Thêm bài viết</a></li>
+                    <li class="list-group-item text-center"><a class="" href="/panel/update"><i
+                                class="fa fa-pencil-square" aria-hidden="true"></i>
+                            Sửa bài viết</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.getElementById("noShowPage").remove();
+</script>

@@ -40,8 +40,11 @@ app.use('/', indexPage);
 var categoryPage = require('./routes/category');
 app.use('/category', categoryPage);
 
-var panelPage = require('./routes/panel');
-app.use('/panel', panelPage);
+var writterPage = require('./routes/panel');
+app.use('/panel', writterPage);
+
+var EditorPage = require('./routes/editor');
+app.use('/editorPage', EditorPage);
 
 var account = require('./routes/account');
 app.use('/account', account);

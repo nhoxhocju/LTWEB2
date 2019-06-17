@@ -12,12 +12,20 @@
             <div class="card shadow mt-5 mb-5">
                 <div class="card-header">
                     <div class="row">
-                        <div class="panel text-center font-weight-bold col-sm-5">DANH SÁCH BÀI VIẾT CỦA BẠN</div>
-                        <div class="add text-right col-sm-7"><a class="btn btn-outline-success btn-sm "
-                                href="/panel/insert" role="button" title="Thêm bài viết">
-                                <i class="fa fa-plus" aria-hidden="true"></i>
-                                Thêm
-                            </a>
+                        <div class="panel font-weight-bold col-sm-7 mt-2">{{#if statusPost}}Danh sách bài viết có tình trạng:
+                            {{statusPost}} {{else}} DANH SÁCH BÀI VIẾT CỦA BẠN {{/if}}</div>
+                        <div class="filter col-sm-5 text-right">
+                            <form class="form-inline" action="/panel" method="POST">
+                                <div class="form-group float-left text-right">
+                                    <select class="custom-select filter-status" id="status" name="status">
+                                        <option value="pendding">Chờ duyệt</option>
+                                        <option value="waitPublish">Chờ xuất bản</option>
+                                        <option value="publish">Đã xuất bản</option>
+                                        <option value="reject">Bị từ chối</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Filter</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -27,14 +35,6 @@
                             <th scope="col">ID</th>
                             <th scope="col">Tiêu đề bài viết</th>
                             <th scope="col">Tình trạng</th>
-                            {{!-- <th scope="col" class="text-right">
-                                <a class="btn btn-outline-success btn-sm" href="/panel/insert" role="button"
-                                    title="Thêm bài viết">
-                                    <i class="fa fa-plus" aria-hidden="true"></i>
-                                    Thêm
-                                </a>
-
-                            </th> --}}
                         </tr>
                     </thead>
                     <tbody>
@@ -43,16 +43,8 @@
                             <th scope="row">{{id}}</th>
                             <td><a href="/single_post/{{id}}">{{title}}</a></td>
 
-                            <td> {{status}}</a></td>
-                            {{!-- <td>
-                                <a class="btn btn-primary btn-sm text-right" href="/panel/update/{{id}}" role="button"
-                                    title="Sửa">
-                                    <i class="fa fa-pencil" aria-hidden="true"></i>
-                                </a>
-                                <a class="btn btn-danger btn-sm" href="/panel/delete/{{id}}" role="button" title="Xóa">
-                                    <i class="fa fa-trash" aria-hidden="true"></i>
-                                </a>
-                            </td> --}}
+                            <td>{{status}}</td>
+                            
                         </tr>
                         {{/each}}
                     </tbody>
@@ -66,7 +58,7 @@
                 </div>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item text-center"><a href="/panel"><i class="fa fa-file-text"
-                                aria-hidden="true"></i> Trang bài viết</a></li>
+                                aria-hidden="true"></i> Tất cả bài viết</a></li>
                     <li class="list-group-item text-center"><a class="" href="/panel/insert"><i class="fa fa-plus"
                                 aria-hidden="true"></i> Thêm bài viết</a></li>
                     <li class="list-group-item text-center"><a class="" href="/panel/update"><i

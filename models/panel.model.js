@@ -4,6 +4,9 @@ module.exports = {
         // var sql = 'select * form post';
         return db.load('select * from post where id_author = '+ idAuthor);
     },
+    showPostByAuthorAndStatus: (idAuthor, status) => {
+        return db.load(`select * from post where id_author = ${idAuthor} and status = ${status}`);
+    },
     selectPostByAuthorAndStatus: idAuthor =>{
         return db.load(`select * from post where id_author = ${idAuthor} and (status = 0 or status = -1)`);
     },

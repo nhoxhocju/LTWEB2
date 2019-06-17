@@ -28,7 +28,7 @@ router.get('/', writterRetricted, (req, res, next) => {
             if (item.status == 0) {
                 item.status = 'Chờ duyệt';
             } else if (item.status == 1) {
-                item.status = 'Chờ đăng bài';
+                item.status = 'Chờ xuất bản';
             } else if (item.status == 2) {
                 item.status = 'Đã xuất bản';
             } else if (item.status == -1) {
@@ -41,6 +41,50 @@ router.get('/', writterRetricted, (req, res, next) => {
             success: req.query.valid
         });
     })
+})
+
+router.post('/', writterRetricted, (req, res, next) => {
+    var status = req.body.status;
+    // if (status != 'pendding' && status != 'reject' && status != 'waitPublish' && status != 'publish')
+    //     return res.render('404');
+    if (status == 'pendding')
+        status = 0;
+    else if (status == 'reject')
+        status = -1;
+    else if (status == 'waitPublish')
+        status = 1;
+    else if (status == 'publish')
+        status = 2;
+    panelModel.showPostByAuthorAndStatus(req.user.id, status).then(rows => {
+        if (rows.length == 0)
+            var notPost = 'notPost';
+        rows.forEach(item => {
+            if (item.status == 0) {
+                item.status = 'Chờ duyệt';
+            } else if (item.status == 1) {
+                item.status = 'Chờ xuất bản';
+            } else if (item.status == 2) {
+                item.status = 'Đã xuất bản';
+            } else if (item.status == -1) {
+                item.status = 'Bị từ chối';
+            }
+        });
+        // console.log(rows);
+        if (status == 0)
+            status = 'Chờ duyệt';
+        else if (status == -1)
+            status = 'Bị từ chối';
+        else if (status == 1)
+            status = 'Chờ xuất bản';
+        else if (status == 2)
+            status = 'Đã xuất bản';
+        res.render('vwPanel/panel', {
+            panel: rows,
+            notPost: notPost,
+            statusPost: status
+        });
+    })
+
 })
 
 router.get('/insert', writterRetricted, (req, res, next) => {
@@ -89,6 +133,7 @@ router.get('/update', writterRetricted, (req, res, next) => {
     })
 })
 
+
 router.get('/edit/:id', writterRetricted, (req, res, next) => {
     var id = req.params.id;
 
@@ -114,7 +159,7 @@ router.post('/edit/:id', restricted, (req, res, next) => {
         }
         var entity = req.body;
         entity.image = '/public/image/' + req.file.filename;
-        
+
         entity.id_author = req.user.id;
 
 

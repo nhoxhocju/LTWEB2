@@ -1,4 +1,6 @@
-<script src="https://cdn.ckeditor.com/4.11.4/standard/ckeditor.js"></script>
+{{!-- <script src="https://cdn.ckeditor.com/4.11.4/standard/ckeditor.js"></script> --}}
+<script src="/ckeditor/ckeditor.js"></script>
+{{!-- <script src="https://cdn.ckeditor.com/4.7.3/full/../public/ckeditor/plugins/youtube/plugin.js?t=H8DA"></script> --}}
 {{#section 'js'}}
 
 <script>
@@ -145,10 +147,12 @@
                 </div>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item text-center"><a href="/panel"><i class="fa fa-file-text"
-                                aria-hidden="true"></i> Trang bài viết</a></li>
+                                aria-hidden="true"></i> Tất cả bài viết</a></li>
                     <li class="list-group-item text-center"><a class="" href="/panel/insert"><i class="fa fa-plus"
-                                aria-hidden="true"></i>
-                            Thêm bài viết</a></li>
+                                aria-hidden="true"></i> Thêm bài viết</a></li>
+                    <li class="list-group-item text-center"><a class="" href="/panel/update"><i
+                                class="fa fa-pencil-square" aria-hidden="true"></i>
+                            Sửa bài viết</a></li>
                 </ul>
             </div>
         </div>
@@ -157,5 +161,5 @@
 <script>
 
     CKEDITOR.replace('editor');
-
+    CKEDITOR.plugins.addExternal( 'youtube', '/public/ckeditor/plugins/youtube/', 'plugin.js' );
 </script>

@@ -66,6 +66,14 @@
                                 Trang bài viết
                             </a>
                             {{/if}}
+                            
+                            {{#if editor}}
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/editorPage/">
+                                <i class="fa fa-file-text" aria-hidden="true"></i>
+                                Trang kiểm duyệt
+                            </a>
+                            {{/if}}
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="javascript: $('#frmLogout').submit();">
                                 <i class="fa fa-sign-out"></i>
@@ -91,7 +99,11 @@
 
     <footer class="bg-dark">
         <div class="container-fluid">
-            <p clas="footer" style="text-align: center;  color:white">Design By MyTeam</p>
+            <p class="footer justify-content-center mt-2" style="text-align: center;  color:white">Design By MyTeam</p>
+            <div class="backToTop text-right mr-5"><a class="text-white" href="#">Back to top </a> <i
+                    class="fa fa-level-up text-white bg-dark" aria-hidden="true"></i></div>
+
+
         </div>
     </footer>
     <!-- Optional JavaScript -->
@@ -110,6 +122,7 @@
         crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="/ckeditor/ckeditor.js"></script>
     {{{_sections.js}}}
 </body>
 

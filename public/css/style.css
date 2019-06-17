@@ -40,8 +40,12 @@ footer {
 
 footer p {
     padding: 10px;
-    font-size: 20px;
+    padding-bottom: 0px;
+    font-size: 25px;
 }
+/* .backToTop a:hover{
+    color: dimgray;
+} */
 
 .new-news {
     /* padding: 10px; */
@@ -57,3 +61,11 @@ footer p {
 /* .category{
     padding: 10px;
 } */
+.title{
+    margin-bottom: -8px;
+    margin-top: -8px;
+    font-weight: bold
+}
+.filter-status{
+    margin-right: 5px;
+}
