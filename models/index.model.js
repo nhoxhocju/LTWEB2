@@ -14,8 +14,5 @@ module.exports = {
     },
     hotNews : () => {
         return db.load('select * from post where hotNews = 1 order by id desc');
-    },
-    // pagination: () =>{
-    //     return db.load('SELECT * FROM post LIMIT 2 OFFSET 2');
-    // }
+    }
 };

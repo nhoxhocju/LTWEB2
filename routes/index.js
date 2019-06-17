@@ -57,7 +57,7 @@ router.get("/", (req, res) => {
 
                     // ///////////////////////////////////////
                     if(pageTopViews > numPage){
-                        return res.redirect('404');
+                        return res.redirect('/404');
                     }
                     for (var i = 1; i <= numPage; i++) {
                         if(numPage == 1){

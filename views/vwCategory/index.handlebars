@@ -1,14 +1,19 @@
 <div class="container pt-3">
-
     <div class="row pt-3">
         <div class="main-left col-sm-8 float-left ">
 
-            <div class="new-news pb-3 pt-2">
+            <div class="category pt-2 pb-3">
                 <div class="card shadow">
                     <div class="card-header">
-                        <i class="fa fa-newspaper-o" aria-hidden="true"></i> TIN MỚI
+                        {{#each category}}
+                        <i class="fa fa-newspaper-o" aria-hidden="true"></i> {{name}}
+                        {{/each}}
                     </div>
                     <ul class="list-group list-group-flush">
+                        {{#if notPost}}
+                        <div class="card-body col-sm-12 {{notPost}}" id="{{notPost}}">
+                        </div>
+                        {{/if}}
                         {{#each this.index}}
                         <li class="list-group-item">
                             <div class="new-news mb-2">
@@ -36,8 +41,8 @@
                         </li>
                         {{/each}}
                     </ul>
-                    {{!-- </div> --}}
-
+                    {{#if notPost}}
+                    {{else}}
                     <div class="row mx-auto {{showPage}}" id="{{showPage}}">
                         <ul class="pagination text-center">
 
@@ -47,7 +52,6 @@
 
                             {{#each totalPage}}
 
-                            {{!-- {{#if disabled.status}} --}}
                             <li class="page-item {{choose}}">
 
                                 <a class="page-link" href="?page={{page}}">{{page}}</a>
@@ -58,69 +62,14 @@
 
                         </ul>
                     </div>
+                    {{/if}}
 
                 </div>
             </div>
-            <div class="new-news pb-3 pt-3">
-                <div class="card shadow mb-3">
-                    <div class="card-header">
-                        <i class="fa fa-newspaper-o" aria-hidden="true"></i> TIN XEM NHIỀU
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        {{#each this.topView}}
-                        <li class="list-group-item">
-                            <div class="top-views mb-2">
 
-                                <div class="infomation col-sm-12 float-left">
-                                    <p><b><a href="/single_post/{{id}}">{{title}}</a>
-                                    </p></b>
-                                </div>
-
-                                <div class="image col-sm-4 float-left" style="background-color:white">
-                                    <a href="/single_post/{{id}}"><img src="{{image}}" alt="" width="100%"
-                                            class="rounded"></a>
-                                </div>
-                                <div class="short_content col-sm-8 float-left">
-                                    <p>
-                                        {{short_content}}
-                                    </p>
-                                </div>
-                                <div class="date_view col-sm-12 float-left text-right">
-                                    <i class="fa fa-clock-o" aria-hidden="true">
-                                    </i> {{dateformat date_post "dd/mm/yyyy"}} |
-                                    <i class="fa fa-eye" aria-hidden="true"></i> {{views}}
-                                </div>
-                            </div>
-                        </li>
-                        {{/each}}
-
-                    </ul>
-
-                    <div class="row mx-auto {{showPageTopViews}}" id="{{showPageTopViews}}">
-                        <ul class="pagination text-center">
-
-                            <li class="page-item {{disPreTopViews}}">
-                                <a class="page-link " href="?pagetv={{preTopViews}}" tabindex="-1">Previous</a>
-                            </li>
-
-                            {{#each totalPageTopViews}}
-
-                            {{!-- {{#if disabled.status}} --}}
-                            <li class="page-item {{choose}}">
-
-                                <a class="page-link" href="?pagetv={{pageTopViews}}">{{pageTopViews}}</a>
-                            </li>
-                            {{/each}}
-                            <li class="page-item {{disNextTopViews}}"><a class="page-link" href="?pagetv={{nextTopViews}}">Next</a>
-                            </li>
-
-                        </ul>
-                    </div>
-                </div>
-            </div>
         </div>
         <div class="main-right col-sm-4">
-            <div class="hot-news pt-2 pb-3">
+            <div class="hot-news pt-2">
                 <div class="card shadow">
                     <div class="card-header col-sm-12">
                         <i class="fa fa-newspaper-o" aria-hidden="true"></i> TIN NỔI BẬT
@@ -149,7 +98,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="category pt-3 pb-3">
+            <div class="category pt-3">
                 <div class="card shadow">
                     <div class="card-header">
                         <i class="fa fa-list-alt" aria-hidden="true"></i>
@@ -183,4 +132,10 @@
 </div>
 <script>
     document.getElementById("noShowPage").remove();
+</script>
+<script>
+    var node = document.createElement("p");
+    var text = document.createTextNode("Không có bài viết nào ở thể loại này!");
+    node.appendChild(text);
+    document.getElementById("notPost").appendChild(node);
 </script>
