@@ -14,17 +14,17 @@
                     <div class="row">
                         <div class="panel font-weight-bold col-sm-7 mt-2">{{#if notCat}} {{notCat}} {{else}} Bạn quản lý
                             thể loại: {{#each cat}} {{name}} {{/each}} {{/if}}</div>
-                        <div class="sort col-sm-5 text-right">
-                            <form class="form-inline" action="/panel" method="POST">
+                        <div class="filter col-sm-5 text-right">
+                            <form class="form-inline" action="/editorPage/filter" method="GET">
                                 <div class="form-group float-left text-right">
-                                    <select class="custom-select sort-status" id="status" name="status">
+                                    <select class="custom-select filter-status" id="status" name="status">
                                         <option value="pendding">Chờ duyệt</option>
                                         <option value="waitPublish">Chờ xuất bản</option>
                                         <option value="publish">Đã xuất bản</option>
                                         <option value="reject">Bị từ chối</option>
                                     </select>
                                 </div>
-                                <button type="submit" class="btn btn-primary">Sort</button>
+                                <button type="submit" class="btn btn-primary">Filter</button>
                             </form>
                         </div>
                     </div>
@@ -35,6 +35,8 @@
                             <th scope="col">ID</th>
                             <th scope="col">Tiêu đề bài viết</th>
                             <th scope="col">Tình trạng</th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -42,8 +44,42 @@
                         <tr>
                             <th scope="row">{{id}}</th>
                             <td><a href="/single_post/{{id}}">{{title}}</a></td>
-
                             <td>{{status}}</td>
+                            <td>
+                                <a class="btn btn-primary btn-sm text-right float-left"
+                                    href="/editorPage/approved/{{id}}" role="button" title="Sửa">
+                                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                                </a>
+                            </td>
+                            <td>
+                                {{#if_eq cause_not_approved ''}}
+                                {{else}}
+                                <a class="btn btn-danger btn-sm text-right " href="#" data-toggle="modal"
+                                    data-target="#exampleModal{{id}}" role="button" title="Xem lý do">
+                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                </a>
+                                <div class="modal" id="exampleModal{{id}}" tabindex="-1" role="dialog">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Lý do từ chối duyệt bài</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>{{cause_not_approved}}</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{/if_eq}}
+                            </td>
                         </tr>
                         {{/each}}
                     </tbody>
@@ -53,17 +89,20 @@
                     <ul class="pagination text-center">
 
                         <li class="page-item {{disPre}}">
-                            <a class="page-link " href="?page={{pre}}" tabindex="-1">Previous</a>
+                            <a class="page-link " href="?{{#if status}}status={{status}}&{{/if}}page={{pre}}"
+                                tabindex="-1">Previous</a>
                         </li>
 
                         {{#each totalPage}}
 
                         <li class="page-item {{choose}}">
 
-                            <a class="page-link" href="?page={{page}}">{{page}}</a>
+                            <a class="page-link"
+                                href="?{{#if status}}status={{status}}&{{/if}}page={{page}}">{{page}}</a>
                         </li>
                         {{/each}}
-                        <li class="page-item {{disNext}}"><a class="page-link" href="?page={{next}}">Next</a>
+                        <li class="page-item {{disNext}}"><a class="page-link"
+                                href="?{{#if status}}status={{status}}&{{/if}}page={{next}}">Next</a>
                         </li>
 
                     </ul>
@@ -71,18 +110,28 @@
             </div>
         </div>
         <div class="col-sm-3">
-            <div class="card shadow mt-5 mb-5">
+            <div class="card shadow mt-5 mb-5 ">
                 <div class="card-header text-center font-weight-bold">
                     QUẢN TRỊ BÀI VIẾT
                 </div>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item text-center"><a href="/panel"><i class="fa fa-file-text"
+                    <li class="list-group-item text-left"><a href="/editorPage"><i class="fa fa-file-text"
                                 aria-hidden="true"></i> Tất cả bài viết</a></li>
-                    <li class="list-group-item text-center"><a class="" href="/panel/insert"><i class="fa fa-plus"
-                                aria-hidden="true"></i> Thêm bài viết</a></li>
-                    <li class="list-group-item text-center"><a class="" href="/panel/update"><i
-                                class="fa fa-pencil-square" aria-hidden="true"></i>
-                            Sửa bài viết</a></li>
+                    <li class="list-group-item text-left"><a class="" href="/editorPage/filter?status=pendding"><i
+                                class="fa fa-file-text" aria-hidden="true"></i> Chờ duyệt</a></li>
+
+                    <li class="list-group-item text-left"><a class="" href="/editorPage/filter?status=waitPublish"><i
+                                class="fa fa-file-text" aria-hidden="true"></i>
+                            Chờ xuất bản</a></li>
+
+                    <li class="list-group-item text-left"><a class="" href="/editorPage/filter?status=publish"><i
+                                class="fa fa-file-text" aria-hidden="true"></i>
+                            Đã xuất bản</a></li>
+                    <li class="list-group-item text-left"><a class="" href="/editorPage/filter?status=reject"><i
+                                class="fa fa-file-text" aria-hidden="true"></i>
+                            Bị từ chối</a></li>
+
+
                 </ul>
             </div>
         </div>

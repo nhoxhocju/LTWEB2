@@ -14,5 +14,9 @@ module.exports = {
     },
     hotNews : () => {
         return db.load('select * from post where hotNews = 1 order by id desc');
+    },
+    updateStatusPost: () =>{
+        return db.updateDate('update post set status = 2 where DATEDIFF(NOW(), date_post) >= 0 and status = 1');
+
     }
 };

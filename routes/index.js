@@ -9,6 +9,11 @@ router.get("/", (req, res) => {
     var qty = 3;
     var start = (page - 1) * qty;
     var startPosTopViews = (pageTopViews - 1) * qty;
+
+    indexModel.updateStatusPost((err, post) => {
+        if (err) return res.json({ error: err.message });
+    });
+
     indexModel.all(start, qty).then(rows => {
         indexModel.hotNews().then(rows2 => {
             indexModel.topView(startPosTopViews, qty).then(rows3 => {
@@ -18,11 +23,11 @@ router.get("/", (req, res) => {
                     var showPage;
                     var showPageTopViews;
                     var numPage = Math.ceil(rows4[0].totalPost / qty);
-                    if(page > numPage){
+                    if (page > numPage) {
                         return res.redirect('404');
                     }
                     for (var i = 1; i <= numPage; i++) {
-                        if(numPage == 1){
+                        if (numPage == 1) {
                             showPage = 'noShowPage';
                             break;
                         }
@@ -32,10 +37,10 @@ router.get("/", (req, res) => {
                         }
                         totalPage.push({ page: i });
                     }
-                    if(page == 1 || page == 2 || page == 3 ){
-                        totalPage.splice(5,numPage-1);
+                    if (page == 1 || page == 2 || page == 3) {
+                        totalPage.splice(5, numPage - 1);
                     }
-                    if(page != 1 && page != 2 && page != 3){
+                    if (page != 1 && page != 2 && page != 3) {
                         var limitLeft = page - 2;
                         var limitRight = page + 2;
                         for (var i = 0; i < limitLeft - 1; i++) {
@@ -56,11 +61,11 @@ router.get("/", (req, res) => {
                     }
 
                     // ///////////////////////////////////////
-                    if(pageTopViews > numPage){
+                    if (pageTopViews > numPage) {
                         return res.redirect('/404');
                     }
                     for (var i = 1; i <= numPage; i++) {
-                        if(numPage == 1){
+                        if (numPage == 1) {
                             showPageTopViews = 'noShowPage';
                             break;
                         }
@@ -70,10 +75,10 @@ router.get("/", (req, res) => {
                         }
                         totalPageTopViews.push({ pageTopViews: i });
                     }
-                    if(pageTopViews == 1 || pageTopViews == 2 || pageTopViews == 3 ){
-                        totalPageTopViews.splice(5,numPage-1);
+                    if (pageTopViews == 1 || pageTopViews == 2 || pageTopViews == 3) {
+                        totalPageTopViews.splice(5, numPage - 1);
                     }
-                    if(pageTopViews != 1 && pageTopViews != 2 && pageTopViews != 3){
+                    if (pageTopViews != 1 && pageTopViews != 2 && pageTopViews != 3) {
                         var limitLeftTV = pageTopViews - 2;
                         var limitRightTV = pageTopViews + 2;
                         for (var i = 0; i < limitLeftTV - 1; i++) {
@@ -103,12 +108,12 @@ router.get("/", (req, res) => {
                         disNext: disNext,
                         showPage: showPage,
                         /////////////////
-                        totalPageTopViews : totalPageTopViews,
-                        preTopViews : preTopViews,
-                        nextTopViews : nextTopViews,
-                        disNextTopViews : disNextTopViews,
-                        disPreTopViews : disPreTopViews,
-                        showPageTopViews : showPageTopViews
+                        totalPageTopViews: totalPageTopViews,
+                        preTopViews: preTopViews,
+                        nextTopViews: nextTopViews,
+                        disNextTopViews: disNextTopViews,
+                        disPreTopViews: disPreTopViews,
+                        showPageTopViews: showPageTopViews
                     });
                 })
             })

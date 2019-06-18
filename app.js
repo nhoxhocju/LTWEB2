@@ -2,19 +2,27 @@ var express = require('express');
 var exphbs = require('express-handlebars');
 var dateformat = require('helper-dateformat');
 var handlebars = require('handlebars');
-handlebars.registerHelper('dateformat', require('helper-dateformat'))
+
+handlebars.registerHelper('dateformat', require('helper-dateformat'));
 var hbs_sections = require('express-handlebars-sections');
+
+handlebars.registerHelper('if_eq', function (a, b, opts) {
+	if (a == b) // Or === depending on your needs
+		return opts.fn(this);
+	else
+		return opts.inverse(this);
+});
+
 var bodyParser = require('body-parser');
 
 var app = express();
 
 app.use(express.static('public'));
-app.use('/public',express.static('public'));
+app.use('/public', express.static('public'));
 
 
 require('./middlewares/session')(app);
 require('./middlewares/passport')(app);
-// require('./middlewares/upload')(app);
 
 app.use(require('./middlewares/auth.mdw'));
 app.use(require('./middlewares/category.mdw'));
@@ -25,6 +33,8 @@ app.engine('handlebars', exphbs({
 		section: hbs_sections()
 	}
 }));
+
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

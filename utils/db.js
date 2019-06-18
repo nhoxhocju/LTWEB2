@@ -66,6 +66,20 @@ module.exports = {
             });
         });
     },
+    updateDate: (sql) => {
+        return new Promise((resolve, reject) => {
+            var connection = createConnection();
+            connection.connect();
+            connection.query(sql, (error, results, fields) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve(results.changedRows);
+                }
+                connection.end();
+            });
+        });
+    },
 
     delete: (tableName, idField, id) => {
         return new Promise((resolve, reject) => {

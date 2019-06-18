@@ -10,7 +10,6 @@ var panelModel = require('../models/panel.model');
 var session = require('express-session');
 
 var router = express.Router();
-
 // Upload
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -21,32 +20,98 @@ var storage = multer.diskStorage({
     }
 });
 
+var qty = 1;
 
 router.get('/', writterRetricted, (req, res, next) => {
-    panelModel.selectPostByAuthor(req.user.id).then(rows => {
-        rows.forEach(item => {
-            if (item.status == 0) {
-                item.status = 'Chờ duyệt';
-            } else if (item.status == 1) {
-                item.status = 'Chờ xuất bản';
-            } else if (item.status == 2) {
-                item.status = 'Đã xuất bản';
-            } else if (item.status == -1) {
-                item.status = 'Bị từ chối';
-            }
 
-        });
-        res.render('vwPanel/panel', {
-            panel: rows,
-            success: req.query.valid
-        });
+    var page = parseInt(req.query.page) || 1;
+    if (page < 1)
+        return res.redirect('404');
+    
+    var start = (page - 1) * qty;
+
+    panelModel.selectPostByAuthor(req.user.id, start, qty).then(rows => {
+        panelModel.totalPostByAuthor(req.user.id).then(rows2 => {
+            var totalPage = [];
+            var showPage;
+
+            if (rows.length == 0) {
+                var notPost = 'notPost';
+                showPage = 'noShowPage';
+            }
+            rows.forEach(item => {
+                if (item.status == 0) {
+                    item.status = 'Chờ duyệt';
+                } else if (item.status == 1) {
+                    item.status = 'Chờ xuất bản';
+                } else if (item.status == 2) {
+                    item.status = 'Đã xuất bản';
+                } else if (item.status == -1) {
+                    item.status = 'Bị từ chối';
+                }
+            });
+
+            var numPage = Math.ceil(rows2[0].totalPost / qty);
+            if (page > numPage && page != 1) {
+                return res.redirect('404');
+            }
+            for (var i = 1; i <= numPage; i++) {
+                if (numPage == 1) {
+                    showPage = 'noShowPage';
+                    break;
+                }
+                if (page == i) {
+                    totalPage.push({ page: i, choose: 'active' });
+                    continue;
+                }
+                totalPage.push({ page: i });
+            }
+            if (page == 1 || page == 2 || page == 3) {
+                totalPage.splice(5, numPage - 1);
+            }
+            if (page != 1 && page != 2 && page != 3) {
+                var limitLeft = page - 2;
+                var limitRight = page + 2;
+                for (var i = 0; i < limitLeft - 1; i++) {
+                    delete totalPage[i];
+                }
+                for (var i = limitRight; i < totalPage.length; i++) {
+                    delete totalPage[i];
+                }
+            }
+            var pre = page - 1;
+            var ne = page + 1;
+            if (page == numPage) {
+                var disNext = 'disabled';
+                ne = page;
+            }
+            if (page == 1) {
+                var disPre = 'disabled';
+            }
+            res.render('vwPanel/panel', {
+                panel: rows,
+                notPost: notPost,
+                totalPage: totalPage,
+                pre: pre,
+                next: ne,
+                disPre: disPre,
+                disNext: disNext,
+                showPage: showPage
+            });
+        })
     })
 })
 
-router.post('/', writterRetricted, (req, res, next) => {
-    var status = req.body.status;
-    // if (status != 'pendding' && status != 'reject' && status != 'waitPublish' && status != 'publish')
-    //     return res.render('404');
+router.get('/filter', writterRetricted, (req, res, next) => {
+    response = {
+        status: req.query.status,
+        page: parseInt(req.query.page) || 1,
+    }
+    var status = response.status;
+    var page = response.page;
+    if (status != 'pendding' && status != 'reject' && status != 'waitPublish' && status != 'publish')
+        return res.render('404');
+
     if (status == 'pendding')
         status = 0;
     else if (status == 'reject')
@@ -55,34 +120,93 @@ router.post('/', writterRetricted, (req, res, next) => {
         status = 1;
     else if (status == 'publish')
         status = 2;
-    panelModel.showPostByAuthorAndStatus(req.user.id, status).then(rows => {
-        if (rows.length == 0)
-            var notPost = 'notPost';
-        rows.forEach(item => {
-            if (item.status == 0) {
-                item.status = 'Chờ duyệt';
-            } else if (item.status == 1) {
-                item.status = 'Chờ xuất bản';
-            } else if (item.status == 2) {
-                item.status = 'Đã xuất bản';
-            } else if (item.status == -1) {
-                item.status = 'Bị từ chối';
+    if (page < 1)
+        return res.redirect('404');
+    
+    var start = (page - 1) * qty;
+
+    panelModel.showPostByAuthorAndStatus(req.user.id, status, start, qty).then(rows => {
+        panelModel.totalPostByAuthorAndStatus(req.user.id, status).then(rows2 => {
+            var totalPage = [];
+            var showPage;
+
+            if (rows.length == 0) {
+                var notPost = 'notPost';
+                showPage = 'noShowPage';
             }
-        });
-        // console.log(rows);
-        if (status == 0)
-            status = 'Chờ duyệt';
-        else if (status == -1)
-            status = 'Bị từ chối';
-        else if (status == 1)
-            status = 'Chờ xuất bản';
-        else if (status == 2)
-            status = 'Đã xuất bản';
-        res.render('vwPanel/panel', {
-            panel: rows,
-            notPost: notPost,
-            statusPost: status
-        });
+            rows.forEach(item => {
+                if (item.status == 0) {
+                    item.status = 'Chờ duyệt';
+                } else if (item.status == 1) {
+                    item.status = 'Chờ xuất bản';
+                } else if (item.status == 2) {
+                    item.status = 'Đã xuất bản';
+                } else if (item.status == -1) {
+                    item.status = 'Bị từ chối';
+                }
+            });
+            if (status == 0)
+                status = 'Chờ duyệt';
+            else if (status == -1)
+                status = 'Bị từ chối';
+            else if (status == 1)
+                status = 'Chờ xuất bản';
+            else if (status == 2)
+                status = 'Đã xuất bản';
+
+
+            var numPage = Math.ceil(rows2[0].totalPost / qty);
+            if (page > numPage && page != 1) {
+                return res.redirect('404');
+            }
+            for (var i = 1; i <= numPage; i++) {
+                if (numPage == 1) {
+                    showPage = 'noShowPage';
+                    break;
+                }
+                if (page == i) {
+                    totalPage.push({ page: i, choose: 'active', status: req.query.status });
+                    continue;
+                }
+                totalPage.push({ page: i, status: req.query.status });
+            }
+            if (page == 1 || page == 2 || page == 3) {
+                totalPage.splice(5, numPage - 1);
+            }
+            if (page != 1 && page != 2 && page != 3) {
+                var limitLeft = page - 2;
+                var limitRight = page + 2;
+                for (var i = 0; i < limitLeft - 1; i++) {
+                    delete totalPage[i];
+                }
+                for (var i = limitRight; i < totalPage.length; i++) {
+                    delete totalPage[i];
+                }
+            }
+            var pre = page - 1;
+            var ne = page + 1;
+            if (page == numPage) {
+                var disNext = 'disabled';
+                ne = page;
+            }
+            if (page == 1) {
+                var disPre = 'disabled';
+            }
+            res.render('vwPanel/panel', {
+                panel: rows,
+                notPost: notPost,
+                statusPost: status,
+                totalPage: totalPage,
+
+                pre: pre,
+                next: ne,
+                disPre: disPre,
+                disNext: disNext,
+                showPage: showPage,
+                status: req.query.status,
+
+            });
+        })
     })
 
 })
@@ -103,33 +227,97 @@ router.post('/insert', restricted, (req, res, next) => {
                 error: err.message
             });
         }
+        // var today = req.app.get('today');
+
         var entity = req.body;
         entity.image = '/public/image/' + req.file.filename;
         entity.id_author = req.user.id;
 
+        var today = req.app.get('today');
+        entity.date_post = today;
+
 
         panelModel.add(entity, (err, post) => {
             if (err) return res.json({ error: err.message });
-        });
-        var success = 'Thêm thành công bài viết!';
-        res.redirect('/panel/insert?valid=' + success);
+        }).then(n=>{
+            res.redirect('/panel');
+        })
     })
 });
 
 router.get('/update', writterRetricted, (req, res, next) => {
-    panelModel.selectPostByAuthorAndStatus(req.user.id).then(rows => {
-        rows.forEach(item => {
-            if (item.status == 0) {
-                item.status = 'Chờ duyệt';
+    var page = parseInt(req.query.page) || 1;
+    if (page < 1)
+        return res.redirect('404');
+    
+    var start = (page - 1) * qty;
+    panelModel.selectPostByAuthorAndStatus(req.user.id, start, qty).then(rows => {
+        panelModel.totalPostByAuthorAndStatus(req.user.id).then(rows2 => {
+            var totalPage = [];
+            var showPage;
 
-            } else if (item.status == -1) {
-                item.status = 'Bị từ chối';
+            if (rows.length == 0) {
+                var notPost = 'notPost';
+                showPage = 'noShowPage';
             }
 
-        });
-        res.render('vwPanel/update', {
-            panel: rows,
-        });
+            var numPage = Math.ceil(rows2[0].totalPost / qty);
+            if (page > numPage && page != 1) {
+                return res.redirect('404');
+            }
+            for (var i = 1; i <= numPage; i++) {
+                if (numPage == 1) {
+                    showPage = 'noShowPage';
+                    break;
+                }
+                if (page == i) {
+                    totalPage.push({ page: i, choose: 'active' });
+                    continue;
+                }
+                totalPage.push({ page: i });
+            }
+            if (page == 1 || page == 2 || page == 3) {
+                totalPage.splice(5, numPage - 1);
+            }
+            if (page != 1 && page != 2 && page != 3) {
+                var limitLeft = page - 2;
+                var limitRight = page + 2;
+                for (var i = 0; i < limitLeft - 1; i++) {
+                    delete totalPage[i];
+                }
+                for (var i = limitRight; i < totalPage.length; i++) {
+                    delete totalPage[i];
+                }
+            }
+            var pre = page - 1;
+            var ne = page + 1;
+            if (page == numPage) {
+                var disNext = 'disabled';
+                ne = page;
+            }
+            if (page == 1) {
+                var disPre = 'disabled';
+            }
+            rows.forEach(item => {
+                if (item.status == 0) {
+                    item.status = 'Chờ duyệt';
+
+                } else if (item.status == -1) {
+                    item.status = 'Bị từ chối';
+                }
+
+            });
+            res.render('vwPanel/update', {
+                panel: rows,
+                notPost: notPost,
+                totalPage: totalPage,
+                pre: pre,
+                next: ne,
+                disPre: disPre,
+                disNext: disNext,
+                showPage: showPage
+            });
+        })
     })
 })
 
@@ -158,34 +346,33 @@ router.post('/edit/:id', restricted, (req, res, next) => {
             });
         }
         var entity = req.body;
-        entity.image = '/public/image/' + req.file.filename;
+        if (!req.file) {
+            delete entity.image;
+        } else {
+            entity.image = '/public/image/' + req.file.filename;
+        }
+        if (entity.submitAgain) {
+            entity.status = 0;
+            entity.cause_not_approved = '';
+        }
+
+        delete entity.submitAgain;
 
         entity.id_author = req.user.id;
+
+        var today = req.app.get('today');
+        entity.date_post = today;
 
 
         panelModel.editPostByAuthorAndId(req.user.id, id, entity, (err, post) => {
             if (err) return res.json({ error: err.message });
 
-        });
-        return res.redirect('/panel/reloadEdit');
+        }).then(n => {
+            res.redirect('/panel/update');
+        })
     })
 })
 
-router.get('/reloadEdit', writterRetricted, (req, res, next) => {
-    panelModel.selectPostByAuthorAndStatus(req.user.id).then(rows => {
-        rows.forEach(item => {
-            if (item.status == 0) {
-                item.status = 'Chờ duyệt';
-
-            } else if (item.status == -1) {
-                item.status = 'Bị từ chối';
-            }
-
-        });
-        res.redirect('/panel/update');
-    })
-
-})
 
 router.get('/delete', writterRetricted, (req, res, next) => {
     res.render('404');

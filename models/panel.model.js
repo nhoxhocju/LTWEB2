@@ -1,14 +1,23 @@
 var db = require('../utils/db');
 module.exports = {
-    selectPostByAuthor : idAuthor =>{
+    selectPostByAuthor : (idAuthor, pos, qty) =>{
         // var sql = 'select * form post';
-        return db.load('select * from post where id_author = '+ idAuthor);
+        return db.load(`select * from post where id_author = ${idAuthor} order by id desc limit ${pos},${qty}`);
     },
-    showPostByAuthorAndStatus: (idAuthor, status) => {
-        return db.load(`select * from post where id_author = ${idAuthor} and status = ${status}`);
+    totalPostByAuthor: (idAuthor)=>{
+        return db.load(`select count(id) as totalPost from post where id_author = ${idAuthor}`);
     },
-    selectPostByAuthorAndStatus: idAuthor =>{
-        return db.load(`select * from post where id_author = ${idAuthor} and (status = 0 or status = -1)`);
+    showPostByAuthorAndStatus: (idAuthor, status, pos, qty) => {
+        return db.load(`select * from post where id_author = ${idAuthor} and status = ${status} order by id desc limit ${pos},${qty}`);
+    },
+    totalPostByAuthorAndStatus: (idAuthor, status) => {
+        return db.load(`select count(id) as totalPost from post where id_author = ${idAuthor} and status = ${status}`);
+    },
+    selectPostByAuthorAndStatus: (idAuthor, pos, qty) =>{
+        return db.load(`select * from post where id_author = ${idAuthor} and (status = 0 or status = -1) order by id desc limit ${pos},${qty}`);
+    },
+    totalPostByAuthorAndStatus: (idAuthor)=>{
+        return db.load(`select count(id) as totalPost from post where id_author = ${idAuthor} and (status = 0 or status = -1)`);
     },
     add : entity => {
         return db.add('post', entity);

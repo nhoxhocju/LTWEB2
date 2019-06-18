@@ -12,7 +12,8 @@
             <div class="card shadow mt-5 mb-5">
                 <div class="card-header">
                     <div class="row">
-                        <div class="panel text-left font-weight-bold col-sm-8 mt-1">DANH SÁCH BÀI VIẾT CỦA BẠN CÓ THỂ SỬA</div>
+                        <div class="panel text-left font-weight-bold col-sm-8 mt-1">DANH SÁCH BÀI VIẾT CỦA BẠN CÓ THỂ
+                            SỬA</div>
                         <div class="add text-right col-sm-4"><a class="btn btn-outline-success btn-sm "
                                 href="/panel/insert" role="button" title="Thêm bài viết">
                                 <i class="fa fa-plus" aria-hidden="true"></i>
@@ -27,7 +28,8 @@
                             <th scope="col">ID</th>
                             <th scope="col">Tiêu đề bài viết</th>
                             <th scope="col">Tình trạng</th>
-                            <th scope="col" class="text-right">
+                            <th scope="col"></th>
+                            <th scope="col">
                                 {{!-- <a class="btn btn-outline-success btn-sm" href="/panel/insert" role="button"
                                     title="Thêm bài viết">
                                     <i class="fa fa-plus" aria-hidden="true"></i>
@@ -42,6 +44,47 @@
                         <tr>
                             <th scope="row">{{id}}</th>
                             <td><a href="/single_post/{{id}}">{{title}}</a></td>
+                            <td>{{status}}</td>
+                            <td>
+                                <a class="btn btn-primary btn-sm text-right" href="/panel/edit/{{id}}" role="button"
+                                    title="Sửa">
+                                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                                </a>
+
+                            </td>
+                            <td>
+                                {{#if_eq cause_not_approved ''}}
+                                {{else}}
+                                <a class="btn btn-danger btn-sm text-right " href="#" data-toggle="modal"
+                                    data-target="#exampleModal{{id}}" role="button" title="Xem lý do">
+                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                </a>
+                                <div class="modal" id="exampleModal{{id}}" tabindex="-1" role="dialog">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Lý do từ chối duyệt bài</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>{{cause_not_approved}}</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{/if_eq}}
+                            </td>
+                        </tr>
+                        {{!-- <tr>
+                            <th scope="row">{{id}}</th>
+                            <td><a href="/single_post/{{id}}">{{title}}</a></td>
 
                             <td> {{status}}</a></td>
                             <td>
@@ -49,14 +92,35 @@
                                     title="Sửa">
                                     <i class="fa fa-pencil" aria-hidden="true"></i>
                                 </a>
-                                {{!-- <a class="btn btn-danger btn-sm" href="/panel/delete/{{id}}" role="button" title="Xóa">
-                                    <i class="fa fa-trash" aria-hidden="true"></i>
-                                </a> --}}
+                                
                             </td>
-                        </tr>
+                        </tr> --}}
                         {{/each}}
                     </tbody>
                 </table>
+                <hr>
+                <div class="row mx-auto {{showPage}}" id="{{showPage}}">
+                    <ul class="pagination text-center">
+
+                        <li class="page-item {{disPre}}">
+                            <a class="page-link " href="?{{#if status}}status={{status}}&{{/if}}page={{pre}}"
+                                tabindex="-1">Previous</a>
+                        </li>
+
+                        {{#each totalPage}}
+
+                        <li class="page-item {{choose}}">
+
+                            <a class="page-link"
+                                href="?{{#if status}}status={{status}}&{{/if}}page={{page}}">{{page}}</a>
+                        </li>
+                        {{/each}}
+                        <li class="page-item {{disNext}}"><a class="page-link"
+                                href="?{{#if status}}status={{status}}&{{/if}}page={{next}}">Next</a>
+                        </li>
+
+                    </ul>
+                </div>
             </div>
         </div>
         <div class="col-sm-3">
@@ -65,11 +129,11 @@
                     QUẢN TRỊ BÀI VIẾT
                 </div>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item text-center"><a href="/panel"><i class="fa fa-file-text"
+                    <li class="list-group-item text-left"><a href="/panel"><i class="fa fa-file-text"
                                 aria-hidden="true"></i> Tất cả bài viết</a></li>
-                    <li class="list-group-item text-center"><a class="" href="/panel/insert"><i class="fa fa-plus"
+                    <li class="list-group-item text-left"><a class="" href="/panel/insert"><i class="fa fa-plus"
                                 aria-hidden="true"></i> Thêm bài viết</a></li>
-                    <li class="list-group-item text-center"><a class="" href="/panel/update"><i
+                    <li class="list-group-item text-left"><a class="" href="/panel/update"><i
                                 class="fa fa-pencil-square" aria-hidden="true"></i>
                             Sửa bài viết</a></li>
                 </ul>
@@ -77,3 +141,6 @@
         </div>
     </div>
 </div>
+<script>
+    document.getElementById("noShowPage").remove();
+</script>
