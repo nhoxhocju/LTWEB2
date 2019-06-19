@@ -246,9 +246,6 @@ router.get("/", adminRestricted, (req, res) => {
         })
     })
     router.get('/listCat', adminRestricted, (req, res) => {
-        // indexModel.updateStatusPost((err, post) => {
-        //     if (err) return res.json({ error: err.message });
-        // });
 
         var page = parseInt(req.query.page) || 1;
         if (page < 1)
@@ -307,6 +304,47 @@ router.get("/", adminRestricted, (req, res) => {
             })
         })
     })
+    router.get('/addCat', adminRestricted, (req, res) => {
+        if(!req.query.name){
+            return res.render('vwAdminPanel/vwManageCategory/addCat');
+        }
+        var nameCat = req.query.name;
+        var entity = req.body;
+        entity.name = nameCat;
+        adminPanel.addCat(entity).then(n=>{
+            res.redirect('/admin/listCat');
+        })
+
+        
+    })
+    router.get('/editCat/:id',adminRestricted, (req, res) => {
+        var idCat = req.params.id;
+        if(!req.query.name){
+            return res.render('vwAdminPanel/vwManageCategory/addCat',{
+                editCat : 'editCat'
+            });
+        }
+        var nameCat = req.query.name;
+        var entity = req.body;
+        entity.name = nameCat;
+        adminPanel.editCat(idCat, entity).then(n=>{
+            res.redirect('/admin/listCat');
+        })
+    })
+
+    router.get('/deleteCat/:id',adminRestricted, (req, res) => {
+        var idCat = req.params.id;
+        if(!req.query.delete){
+            return res.render('vwAdminPanel/vwManageCategory/addCat',{
+                deleteCat : 'deleteCat'
+            });
+        }
+        delete req.query.delete;
+        adminPanel.deletePostByIdCat(idCat);
+        adminPanel.deleteCat(idCat).then(n=>{
+            res.redirect('/admin/listCat');
+        })
+    });
 
 })
 module.exports = router;

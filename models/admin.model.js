@@ -34,9 +34,21 @@ module.exports = {
         return db.load(`select p.*, c.name from post p inner join category c on p.id_category = c.id where p.id = ${idPost}`);
     },
     selectAllCat: (pos, qty)=>{
-        return db.load(`select * from category order by id limit ${pos}, ${qty}`);
+        return db.load(`select * from category order by id desc limit ${pos}, ${qty}`);
     },
     totalAllCat: ()=>{
-        return db.load(`select count(id) as totalAllCat from post`);
+        return db.load(`select count(id) as totalAllCat from category`);
+    },
+    addCat: entity=>{
+        return db.add('category',entity);
+    },
+    editCat: (idCat, entity) =>{
+        return db.update('category', 'id', entity, idCat);
+    },
+    deleteCat: (idCat) =>{
+        return db.delete('category', 'id', idCat);
+    },
+    deletePostByIdCat: (idCat)=>{
+        return db.delete('post', 'id_category', idCat);
     }
 }

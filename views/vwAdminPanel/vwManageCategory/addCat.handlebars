@@ -1,0 +1,84 @@
+<div class="container">
+    {{#if success}}
+    <div class="alert alert-success alert-dismissible fade show mt-5" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        {{success}}
+    </div>
+    {{/if}}
+    <div class="row">
+        <div class="col-sm-9">
+            <div class="card shadow mt-5 mb-5">
+                {{#if deleteCat}}
+                <div class="card-header">
+                    <div class="row">
+                        <div class="panel font-weight-bold col-sm-4 mt-2">Xóa thể loại</div>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <form action="" method="GET">
+                        <div class="form-group">
+                            Sau khi xóa thể loại, sẽ không hoàn tác được. Bạn có chắc chắn xóa?
+                        </div>
+                        <div class="row">
+                            <button type="submit" name="delete" value="1" class="btn btn-danger mr-3 ml-2"><i class="fa fa-trash-o" aria-hidden="true"></i> Xóa</button>
+                            <a class="btn btn-dark btn-sm" href="/admin/listCat" role="button" title="Add">
+                                <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                                Quay lại trang thể loại
+                            </a>
+                        </div>
+                    </form>
+                </div>
+                {{else}}
+                <div class="card-header">
+                    <div class="row">
+                        <div class="panel font-weight-bold col-sm-4 mt-2">{{#if editCat}}Sửa thể loại{{else}}Thêm thể
+                            loại{{/if}}</div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form action="" method="GET">
+                        <div class="form-group">
+                            <label>Tên thể loại</label>
+                            <input type="text" class="form-control" id="" name="name" placeholder="">
+                        </div>
+                        <button type="submit" class="btn btn-primary">{{#if editCat}}Sửa{{else}}Thêm{{/if}}</button>
+                    </form>
+                </div>
+                {{/if}}
+
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="card shadow mt-5 mb-5 ">
+                <div class="card-header text-center font-weight-bold">
+                    QUẢN TRỊ ADMIN
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item text-left"><a href="/admin"><i class="fa fa-home" aria-hidden="true"></i>
+                            Dashboard</a></li>
+                    <li class="list-group-item text-left"><a class="" href="/admin/listPost"><i class="fa fa-file-text"
+                                aria-hidden="true"></i> Quản lý bài viết</a></li>
+
+                    <li class="list-group-item text-left"><a class="" href="/admin/listCat"><i class="fa fa-list-alt"
+                                aria-hidden="true"></i>
+                            Quản lý thể loại</a></li>
+
+                    <li class="list-group-item text-left"><a class="" href="/admin/listTags"><i class="fa fa-tags"
+                                aria-hidden="true"></i>
+                            Quản lý tag</a></li>
+                    <li class="list-group-item text-left"><a class="" href="/admin/listUsers"><i class="fa fa-users"
+                                aria-hidden="true"></i>
+                            Quản lý thành viên</a></li>
+
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.getElementById("noShowPage").remove();
+</script>

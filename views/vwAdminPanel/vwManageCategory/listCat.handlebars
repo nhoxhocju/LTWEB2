@@ -12,7 +12,13 @@
             <div class="card shadow mt-5 mb-5">
                 <div class="card-header">
                     <div class="row">
-                        <div class="panel font-weight-bold col-sm-7 mt-2">Danh sách bài viết</div>
+                        <div class="panel font-weight-bold col-sm-4 mt-2">Danh sách thể loại</div>
+                        <div class="panel font-weight-bold col-sm-3 mt-1">
+                            <a class="btn btn-outline-success btn-sm" href="/admin/addCat" role="button" title="Add">
+                                <i class="fa fa-plus" aria-hidden="true"></i>
+                                Add Category
+                            </a>
+                        </div>
                         <div class="filter col-sm-5 text-right">
                             <form class="form-inline" action="/admin/filter" method="GET">
                                 <div class="form-group float-left text-right">
@@ -43,39 +49,15 @@
                             <th scope="row" class="text-center">{{id}}</th>
                             <td class="title-table"><a href="/category/{{id}}">{{name}}</a></td>
                             <td class="text-center">
-                                <a class="btn btn-primary btn-sm text-right" href="/admin/editCat/{{id}}"
-                                    role="button" title="Sửa">
+                                <a class="btn btn-primary btn-sm text-right" href="/admin/editCat/{{id}}" role="button"
+                                    title="Sửa">
                                     <i class="fa fa-pencil" aria-hidden="true"></i>
                                 </a>
                             </td>
                             <td class="text-center">
-                                <a class="btn btn-danger btn-sm text-right " href="#" data-toggle="modal"
-                                    data-target="#exampleModal{{id}}" role="button" title="Xem lý do">
+                                <a class="btn btn-danger btn-sm text-right " href="/admin/deleteCat/{{id}}"role="button" title="xóa">
                                     <i class="fa fa-eye" aria-hidden="true"></i>
                                 </a>
-                                <div class="modal" id="exampleModal{{id}}" tabindex="-1" role="dialog">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title">Xóa thể loại: {{name}}</h5>
-                                                <button type="button" class="close" data-dismiss="modal"
-                                                    aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <p>Bạn có chắc chắn muốn xóa? Sau khi xóa sẽ không hoàn tác lại được!
-                                                </p>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary"
-                                                    data-dismiss="modal">Close</button>
-                                                <button type="button" class="btn btn-danger"
-                                                    data-dismiss="modal">Xóa</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </td>
                         </tr>
                         {{/each}}
