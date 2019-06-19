@@ -1,0 +1,61 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+            <div class="card shadow mt-5 rounded border-primary">
+                <div class="card-header bg-info text-white">
+                    <div class="row">
+                        <div class="font-weight-bold mt-2 col-sm-12 text-center">Welcome</div>
+                    </div>
+                </div>
+                <table class="table table-hover">
+                    <thead>
+                        <tr class="table-secondary">
+                            <th scope="col" class="text-center">Bài viết</th>
+                            <th scope="col" class="text-center">Chuyên mục</th>
+                            <th scope="col" class="text-center">Tag</th>
+                            <th scope="col" class="text-center">Độc giả</th>
+                            <th scope="col" class="text-center">Writter</th>
+                            <th scope="col" class="text-center">Editor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="table-success">
+                            <th scope="row" class="text-center">{{post}}</th>
+                            <td class="text-center">{{cat}}</td>
+                            <td class="text-center">{{tag}}</td>
+                            <td class="text-center">{{member}}</td>
+                            <td class="text-center">{{writter}}</td>
+                            <td class="text-center">{{editor}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="card shadow mt-5 mb-5 ">
+                <div class="card-header text-center font-weight-bold">
+                    QUẢN TRỊ ADMIN
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item text-left"><a href="/admin"><i class="fa fa-home" aria-hidden="true"></i> Dashboard</a></li>
+                    <li class="list-group-item text-left"><a class="" href="/admin/listPost"><i
+                                class="fa fa-file-text" aria-hidden="true"></i> Quản lý bài viết</a></li>
+
+                    <li class="list-group-item text-left"><a class="" href="/admin/listCat"><i class="fa fa-list-alt" aria-hidden="true"></i>
+                            Quản lý thể loại</a></li>
+
+                    <li class="list-group-item text-left"><a class="" href="/admin/listTags"><i class="fa fa-tags" aria-hidden="true"></i>
+                            Quản lý tag</a></li>
+                    <li class="list-group-item text-left"><a class="" href="/admin/listUsers"><i class="fa fa-users" aria-hidden="true"></i>
+                            Quản lý thành viên</a></li>
+
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.getElementById("noShowPage").remove();
+</script>

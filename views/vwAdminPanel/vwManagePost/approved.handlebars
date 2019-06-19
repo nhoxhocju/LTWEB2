@@ -138,7 +138,6 @@
                         <input name="" id="short_contentData" class="btn btn-primary" type="text"
                             value="{{short_content}}">
 
-
                         {{!-- <div class="form-check mb-3">
                             <input type="checkbox" value="1" class="form-check-input" id="hotNews" name="hotNews">
                             <label class="form-check-label" for="exampleCheck1">Tin tức nổi bật</label>
@@ -148,32 +147,31 @@
                             <button type="submit" name="reject" value="0" class="btn btn-danger">Từ chối duyệt</button>
                         </center>
                     </form>
-
+                    {{/each}}
                 </div>
-                {{/each}}
             </div>
         </div>
         <div class="col-sm-3">
             <div class="card shadow mt-5 mb-5 ">
                 <div class="card-header text-center font-weight-bold">
-                    QUẢN TRỊ BÀI VIẾT
+                    QUẢN TRỊ ADMIN
                 </div>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item text-left"><a href="/editorPage"><i class="fa fa-file-text"
-                                aria-hidden="true"></i> Tất cả bài viết</a></li>
-                    <li class="list-group-item text-left"><a class="" href="/editorPage/filter?status=pendding"><i
-                                class="fa fa-file-text" aria-hidden="true"></i> Chờ duyệt</a></li>
+                    <li class="list-group-item text-left"><a href="/admin"><i class="fa fa-home" aria-hidden="true"></i>
+                            Dashboard</a></li>
+                    <li class="list-group-item text-left"><a class="" href="/admin/listPost"><i class="fa fa-file-text"
+                                aria-hidden="true"></i> Quản lý bài viết</a></li>
 
-                    <li class="list-group-item text-left"><a class="" href="/editorPage/filter?status=waitPublish"><i
-                                class="fa fa-file-text" aria-hidden="true"></i>
-                            Chờ xuất bản</a></li>
+                    <li class="list-group-item text-left"><a class="" href="/admin/listCat"><i class="fa fa-list-alt"
+                                aria-hidden="true"></i>
+                            Quản lý thể loại</a></li>
 
-                    <li class="list-group-item text-left"><a class="" href="/editorPage/filter?status=publish"><i
-                                class="fa fa-file-text" aria-hidden="true"></i>
-                            Đã xuất bản</a></li>
-                    <li class="list-group-item text-left"><a class="" href="/editorPage/filter?status=reject"><i
-                                class="fa fa-file-text" aria-hidden="true"></i>
-                            Bị từ chối</a></li>
+                    <li class="list-group-item text-left"><a class="" href="/admin/listTags"><i class="fa fa-tags"
+                                aria-hidden="true"></i>
+                            Quản lý tag</a></li>
+                    <li class="list-group-item text-left"><a class="" href="/admin/listUsers"><i class="fa fa-users"
+                                aria-hidden="true"></i>
+                            Quản lý thành viên</a></li>
 
 
                 </ul>
@@ -186,12 +184,6 @@
 
     CKEDITOR.replace('editor');
 
-    //$.fn.datepicker.defaults.format = "yyyy-mm-dd";
-    //var startDate = new Date('01/01/2012');
-    //var FromEndDate = new Date();
-    //var ToEndDate = new Date();
-
-    //ToEndDate.setDate(ToEndDate.getDate() + 365);
     $('#datepicker').datepicker({
         uiLibrary: 'bootstrap4',
         format: 'yyyy-mm-dd'

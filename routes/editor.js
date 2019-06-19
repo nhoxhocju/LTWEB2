@@ -2,13 +2,25 @@ var express = require('express');
 var router = express.Router();
 var editorModel = require('../models/editor.model');
 var editorRestricted = require('../middlewares/editorRestricted');
-var panelModel = require('../models/panel.model');
 var indexModel = require('../models/index.model');
 
 var handlebars = require('handlebars');
 handlebars.registerHelper('dateformat', require('helper-dateformat'))
 
 var qty = 1;
+function editStatus(rows) {
+    rows.forEach(item => {
+        if (item.status == 0) {
+            item.status = 'Chờ duyệt';
+        } else if (item.status == 1) {
+            item.status = 'Chờ xuất bản';
+        } else if (item.status == 2) {
+            item.status = 'Đã xuất bản';
+        } else if (item.status == -1) {
+            item.status = 'Bị từ chối';
+        }
+    });
+}
 router.get("/", editorRestricted, (req, res) => {
 
     indexModel.updateStatusPost((err, post) => {
@@ -61,18 +73,7 @@ router.get("/", editorRestricted, (req, res) => {
                 if (page == 1) {
                     var disPre = 'disabled';
                 }
-                rows.forEach(item => {
-                    if (item.status == 0) {
-                        item.status = 'Chờ duyệt';
-                    } else if (item.status == 1) {
-                        item.status = 'Chờ xuất bản';
-                    } else if (item.status == 2) {
-                        item.status = 'Đã xuất bản';
-                    } else if (item.status == -1) {
-                        item.status = 'Bị từ chối';
-                    }
-
-                });
+                editStatus(rows)
                 if (rows3.length == 0) {
                     var notCat = 'Bạn không quản lý thể loại nào!'
                 }
@@ -113,7 +114,7 @@ router.get('/filter', editorRestricted, (req, res, next) => {
 
     if (page < 1)
         return res.redirect('404');
-    
+
     var start = (page - 1) * qty;
 
     editorModel.selectPostOfEditorAndManageCategoryAndStatus(req.user.id, status, start, qty).then(rows => {
@@ -126,17 +127,8 @@ router.get('/filter', editorRestricted, (req, res, next) => {
                     var notPost = 'notPost';
                     showPage = 'noShowPage';
                 }
-                rows.forEach(item => {
-                    if (item.status == 0) {
-                        item.status = 'Chờ duyệt';
-                    } else if (item.status == 1) {
-                        item.status = 'Chờ xuất bản';
-                    } else if (item.status == 2) {
-                        item.status = 'Đã xuất bản';
-                    } else if (item.status == -1) {
-                        item.status = 'Bị từ chối';
-                    }
-                });
+                editStatus(rows);
+
                 if (status == 0)
                     status = 'Chờ duyệt';
                 else if (status == -1)
@@ -184,18 +176,6 @@ router.get('/filter', editorRestricted, (req, res, next) => {
                 if (page == 1) {
                     var disPre = 'disabled';
                 }
-                rows.forEach(item => {
-                    if (item.status == 0) {
-                        item.status = 'Chờ duyệt';
-                    } else if (item.status == 1) {
-                        item.status = 'Chờ xuất bản';
-                    } else if (item.status == 2) {
-                        item.status = 'Đã xuất bản';
-                    } else if (item.status == -1) {
-                        item.status = 'Bị từ chối';
-                    }
-
-                });
                 if (rows3.length == 0) {
                     var notCat = 'Bạn không quản lý thể loại nào!'
                 }
@@ -217,20 +197,18 @@ router.get('/filter', editorRestricted, (req, res, next) => {
 
 })
 router.get('/approved/:id', editorRestricted, (req, res, next) => {
-    var id = req.body.id;
+
     var id = req.params.id;
 
     editorModel.findPostByEditorAndIdPost(req.user.id, id).then(rows => {
         if (rows.length == 0)
             return res.render('404');
-        panelModel.selectAllCategory().then(rows2 => {
-            res.render('vwEditorPanel/approved', {
-                post: rows,
-                categories: rows2
-            });
+        editStatus(rows);
+        res.render('vwEditorPanel/approved', {
+            post: rows
         });
     });
-})
+});
 
 router.post('/approved/:id', editorRestricted, (req, res, next) => {
     var entity = req.body;

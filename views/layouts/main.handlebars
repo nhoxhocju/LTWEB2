@@ -59,21 +59,28 @@
                                 <i class="fa fa-user"></i>
                                 Profile
                             </a>
-                            {{#if writter}}
+                            {{#if_eq authUser.userRight 2}}
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="/panel/">
                                 <i class="fa fa-file-text" aria-hidden="true"></i>
                                 Trang bài viết
                             </a>
-                            {{/if}}
-                            
-                            {{#if editor}}
+                            {{/if_eq}}
+                            {{#if_eq authUser.userRight 3}}
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="/editorPage/">
                                 <i class="fa fa-file-text" aria-hidden="true"></i>
                                 Trang kiểm duyệt
                             </a>
-                            {{/if}}
+                            {{/if_eq}}
+                            {{#if_eq authUser.userRight 9}}
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/admin/">
+                                <i class="fa fa-file-text" aria-hidden="true"></i>
+                                Trang Admin
+                            </a>
+                            {{/if_eq}}
+                            
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="javascript: $('#frmLogout').submit();">
                                 <i class="fa fa-sign-out"></i>

@@ -53,8 +53,11 @@ app.use('/category', categoryPage);
 var writterPage = require('./routes/panel');
 app.use('/panel', writterPage);
 
-var EditorPage = require('./routes/editor');
-app.use('/editorPage', EditorPage);
+var editorPage = require('./routes/editor');
+app.use('/editorPage', editorPage);
+
+var adminPage = require('./routes/admin');
+app.use('/admin', adminPage);
 
 var account = require('./routes/account');
 app.use('/account', account);
