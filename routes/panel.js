@@ -20,7 +20,7 @@ var storage = multer.diskStorage({
     }
 });
 
-var qty = 2;
+var qty = 20;
 
 router.get('/', writterRetricted, (req, res, next) => {
 
