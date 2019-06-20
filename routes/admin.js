@@ -209,13 +209,16 @@ router.get("/", adminRestricted, (req, res) => {
         var id = req.params.id;
 
         adminPanel.findPostById(id).then(rows => {
-            if (rows.length == 0)
-                return res.render('404');
-            editStatus(rows);
-            res.render('vwAdminPanel/vwManagePost/approved', {
-                post: rows,
+            editorModel.selectAllTag().then(rows2 => {
+                if (rows.length == 0)
+                    return res.render('404');
+                editStatus(rows);
+                res.render('vwAdminPanel/vwManagePost/approved', {
+                    post: rows,
+                    tag: rows2,
+                });
             });
-        });
+        })
     });
     router.post('/approved/:id', adminRestricted, (req, res, next) => {
         var entity = req.body;
@@ -240,6 +243,7 @@ router.get("/", adminRestricted, (req, res) => {
                 if (entity.cause_not_approved.length == 0)
                     entity.cause_not_approved = 'Người kiểm duyệt không đưa ra lý do';
                 delete entity.image;
+                delete entity.id_tag;
             }
 
             entity.id_category = rows[0].id;
@@ -312,46 +316,54 @@ router.get("/", adminRestricted, (req, res) => {
         })
     })
     router.get('/addCat', adminRestricted, (req, res) => {
-        if(!req.query.name){
+        if (!req.query.name) {
             return res.render('vwAdminPanel/vwManageCategory/addCat');
         }
         var nameCat = req.query.name;
         var entity = req.body;
         entity.name = nameCat;
-        adminPanel.addCat(entity).then(n=>{
+        adminPanel.addCat(entity).then(n => {
             res.redirect('/admin/listCat');
         })
 
-        
+
     })
-    router.get('/editCat/:id',adminRestricted, (req, res) => {
+    router.get('/editCat/:id', adminRestricted, (req, res) => {
         var idCat = req.params.id;
-        if(!req.query.name){
-            return res.render('vwAdminPanel/vwManageCategory/addCat',{
-                editCat : 'editCat'
+        if (!req.query.name) {
+            return res.render('vwAdminPanel/vwManageCategory/addCat', {
+                editCat: 'editCat'
             });
         }
         var nameCat = req.query.name;
         var entity = req.body;
         entity.name = nameCat;
-        adminPanel.editCat(idCat, entity).then(n=>{
+        adminPanel.editCat(idCat, entity).then(n => {
             res.redirect('/admin/listCat');
         })
     })
 
-    router.get('/deleteCat/:id',adminRestricted, (req, res) => {
+    router.get('/deleteCat/:id', adminRestricted, (req, res) => {
         var idCat = req.params.id;
-        if(!req.query.delete){
-            return res.render('vwAdminPanel/vwManageCategory/addCat',{
-                deleteCat : 'deleteCat'
+        if (!req.query.delete) {
+            return res.render('vwAdminPanel/vwManageCategory/addCat', {
+                deleteCat: 'deleteCat'
             });
         }
         delete req.query.delete;
-        adminPanel.deletePostByIdCat(idCat);
-        adminPanel.deleteCat(idCat).then(n=>{
-            res.redirect('/admin/listCat');
-        })
-    });
+        adminPanel.findAllCommentOfCat(idCat).then(rows => {
+            for (var i = 0; i < rows.length; i++) {
+                adminPanel.deleteCommentById(rows[i].idcm).then(n => {
+                })
+
+            }
+            adminPanel.deletePostByIdCat(idCat).then(n => {
+                adminPanel.deleteCat(idCat).then(n => {
+                    res.redirect('/admin/listCat');
+                })
+            })
+        });
+    })
 
 })
 module.exports = router;

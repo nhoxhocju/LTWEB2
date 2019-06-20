@@ -3,7 +3,9 @@ var express = require('express');
 var router = express.Router();
 
 var indexModel = require('../models/index.model');
-var qty = 1;
+//qty = so luong bai
+var qty = 3;
+
 router.get("/", (req, res) => {
     response = {
         page: parseInt(req.query.page) || 1,

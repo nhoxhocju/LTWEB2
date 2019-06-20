@@ -21,14 +21,8 @@
                 title: {
                     required: true
                 },
-                id_category: {
+                id_tag: {
                     valueNotEquals: "default"
-                },
-                //image: {
-                //  required: true
-                //},
-                tag: {
-                    required: true
                 },
                 date_post: {
                     required: true
@@ -38,16 +32,10 @@
                 title: {
                     required: 'Bạn vui lòng nhập tiêu đề bài viết.'
                 },
-                //image: {
-                // required: 'Bạn vui lòng upload hình ảnh.'
-                // },
-                tag: {
-                    required: 'Bạn vui lòng nhập tag.'
-                },
                 date_post: {
                     required: 'Bạn vui lòng nhập ngày đăng.'
                 },
-                id_category: {
+                id_tag: {
                     valueNotEquals: "Vui lòng chọn chuyên mục."
                 }
             },
@@ -123,11 +111,18 @@
                             <textarea readonly name="content" value="" id="editor"></textarea>
 
                         </div>
+                        {{/each}}
                         <div class="form-group">
-                            <label>Tag</label>
-                            <input readonly type="text" class="form-control" id="tag" value="{{tag}}" placeholder=""
-                                name="tag">
+                            <label>Nhãn tag</label>
+                            <select required class="custom-select" id="id_tag" name="id_tag">
+                                <option value="default">Chọn nhãn tag</option>
+                                {{#each tag}}
+                                <option value="{{id}}">{{nameTag}}</option>
+                                {{/each}}
+
+                            </select>
                         </div>
+                        {{#each post}}
                         <div class="form-group">
                             <label for="exampleFormControlTextarea1">Nếu từ chối duyệt bài, vui lòng nêu lý do</label>
                             <input type="text" class="form-control" id="cause_not_approved" placeholder=""

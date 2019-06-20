@@ -15,7 +15,7 @@
                 <div class="title pl-5 pr-5">
                     <h2>{{single.title}}</h2>
                     <p class="info_post p-3">
-                        <small><i class="fa fa-user-circle" aria-hidden="true"></i> Bảo Lương |
+                        <small><i class="fa fa-user-circle" aria-hidden="true"></i> {{single.nameAuthor}} |
                             <i class="fa fa-clock-o" aria-hidden="true"></i> Ngày đăng:
                             {{dateformat single.date_post "dd/mm/yyyy"}} |
                             <i class="fa fa-eye" aria-hidden="true"></i> Lượt xem: {{view.views}}
@@ -30,7 +30,7 @@
                     {{{single.content}}}
                 </div>
                 <div class="tag pl-5">
-                    <p>Nhãn Tag: {{single.tag}}</p>
+                    <p>Nhãn Tag: {{single.nameTag}}</p>
                 </div>
             </li>
 

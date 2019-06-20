@@ -7,7 +7,7 @@ module.exports = {
         return db.load(`SELECT count(id) as totalPost FROM Post`);
     },
     Statistic_Tag : () => {
-        return db.load(`SELECT count(tag) as totalTag FROM Post`);
+        return db.load(`SELECT count(id) as totalTag FROM tag where id != 1`);
     },
     Statistic_Member : () => {
         return db.load(`SELECT count(id) as totalMember FROM user where userRight = 0 or userRight = 1`);
@@ -50,5 +50,11 @@ module.exports = {
     },
     deletePostByIdCat: (idCat)=>{
         return db.delete('post', 'id_category', idCat);
+    },
+    deleteCommentById: (id)=>{
+        return db.delete('comment', 'id', id);
+    },
+    findAllCommentOfCat: (idCat)=>{
+        return db.load(`SELECT cm.id as idcm from post p inner join category c on p.id_category = c.id inner join comment cm on p.id = cm.id_post where c.id = ${idCat}`)
     }
 }

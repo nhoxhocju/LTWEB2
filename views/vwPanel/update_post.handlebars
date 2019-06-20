@@ -24,9 +24,6 @@
                 id_category: {
                     valueNotEquals: "default"
                 },
-                tag: {
-                    required: true
-                },
                 date_post: {
                     required: true
                 },
@@ -34,9 +31,6 @@
             messages: {
                 title: {
                     required: 'Bạn vui lòng nhập tiêu đề bài viết.'
-                },
-                tag: {
-                    required: 'Bạn vui lòng nhập tag.'
                 },
                 date_post: {
                     required: 'Bạn vui lòng nhập ngày đăng.'
@@ -118,11 +112,7 @@
                             <textarea required name="content" value="" id="editor"></textarea>
 
                         </div>
-                        <div class="form-group">
-                            <label>Tag</label>
-                            <input required type="text" class="form-control" id="tag" value="{{tag}}" placeholder=""
-                                name="tag">
-                        </div>
+                        
 
                         <input name="" id="contentData" class="btn btn-primary" type="text" value="{{content}}">
                         <input name="" id="short_contentData" class="btn btn-primary" type="text" value="{{short_content}}">

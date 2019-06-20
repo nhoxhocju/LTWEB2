@@ -202,12 +202,15 @@ router.get('/approved/:id', editorRestricted, (req, res, next) => {
     var id = req.params.id;
 
     editorModel.findPostByEditorAndIdPost(req.user.id, id).then(rows => {
-        if (rows.length == 0)
-            return res.render('404');
-        editStatus(rows);
-        res.render('vwEditorPanel/approved', {
-            post: rows
-        });
+        editorModel.selectAllTag().then(rows2 => {
+            if (rows.length == 0)
+                return res.render('404');
+            editStatus(rows);
+            res.render('vwEditorPanel/approved', {
+                post: rows,
+                tag: rows2,
+            });
+        })
     });
 });
 

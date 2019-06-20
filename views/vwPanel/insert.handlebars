@@ -26,9 +26,6 @@
                 image: {
                     required: true
                 },
-                tag: {
-                    required: true
-                },
                 {{!-- date_post: {
                     required: true
                 }, --}}
@@ -43,12 +40,6 @@
                 image: {
                     required: 'Bạn vui lòng upload hình ảnh.'
                 },
-                tag: {
-                    required: 'Bạn vui lòng nhập tag.'
-                },
-                {{!-- date_post: {
-                    required: 'Bạn vui lòng nhập ngày đăng.'
-                }, --}}
                 id_category: {
                     valueNotEquals: "Vui lòng chọn chuyên mục."
                 },
@@ -124,10 +115,6 @@
                         <div class="form-group">
                             <label for="exampleFormControlTextarea1">Nội dung bài viết</label>
                             <textarea required name="content" id="editor"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label>Tag</label>
-                            <input required type="text" class="form-control" id="tag" placeholder="" name="tag">
                         </div>
                         {{!-- <div class="form-check mb-3">
                             <input type="checkbox" value="1" class="form-check-input" id="hotNews" name="hotNews">

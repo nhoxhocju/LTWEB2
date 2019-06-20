@@ -28,5 +28,8 @@ module.exports = {
     },
     findIdCatByNameCat: namePost =>{
         return db.load(`Select * from category where name = '${namePost}'`);
+    },
+    selectAllTag: () =>{
+        return db.load(`select * from tag where id != 1`);
     }
 };
