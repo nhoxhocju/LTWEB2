@@ -122,9 +122,9 @@ router.get('/filter', editorRestricted, (req, res, next) => {
             editorModel.selectCategoryByManageCat(req.user.manageCategory).then(rows3 => {
                 var totalPage = [];
                 var showPage;
-
+                var notPost;
                 if (rows.length == 0) {
-                    var notPost = 'notPost';
+                    notPost = 'notPost';
                     showPage = 'noShowPage';
                 }
                 editStatus(rows);
@@ -190,6 +190,7 @@ router.get('/filter', editorRestricted, (req, res, next) => {
                     showPage: showPage,
                     notCat: notCat,
                     status: req.query.status,
+                    notPost: notPost,
                 });
             })
         })

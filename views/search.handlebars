@@ -1,16 +1,18 @@
 <div class="container pt-3">
-
     <div class="row pt-3">
         <div class="main-left col-sm-8 float-left ">
 
-            <div class="new-news pb-3 pt-2">
+            <div class="category pt-2 pb-3">
                 <div class="card shadow">
                     <div class="card-header">
-                        <i class="fa fa-newspaper-o" aria-hidden="true"></i> TIN MỚI
+                        <i class="fa fa-newspaper-o" aria-hidden="true"></i> Tìm kiếm
                     </div>
-                    {{#each index}}
                     <ul class="list-group list-group-flush">
-
+                        {{#if notPost}}
+                        <div class="card-body col-sm-12 {{notPost}}" id="{{notPost}}">
+                        </div>
+                        {{/if}}
+                        {{#each post}}
                         <li class="list-group-item">
                             <div class="new-news mb-2">
 
@@ -35,105 +37,43 @@
                                 </div>
                             </div>
                         </li>
-
+                        {{/each}}
                     </ul>
-                    {{/each}}
-                    {{!-- </div> --}}
-
+                    {{#if notPost}}
+                    {{else}}
                     <div class="row mx-auto {{showPage}}" id="{{showPage}}">
                         <ul class="pagination text-center">
 
                             <li class="page-item {{disPre}}">
-                                <a class="page-link "
-                                    href="?{{#if vwpageTopViews}}pagetv={{vwpageTopViews}}&{{/if}}page={{pre}}"
-                                    tabindex="-1">Previous</a>
+                                <a class="page-link " href="?keyword={{keyword}}&page={{pre}}" tabindex="-1">Previous</a>
                             </li>
 
                             {{#each totalPage}}
 
-                            {{!-- {{#if disabled.status}} --}}
                             <li class="page-item {{choose}}">
-                                <a class="page-link" href="?pagetv={{pageTopViews}}&page={{page}}">{{page}}</a>
+
+                                <a class="page-link" href="?keyword={{keyword}}&page={{page}}">{{page}}</a>
                             </li>
                             {{/each}}
-                            <li class="page-item {{disNext}}"><a class="page-link"
-                                    href="?pagetv={{vwpageTopViews}}&page={{next}}">Next</a>
+                            <li class="page-item {{disNext}}"><a class="page-link" href="?keyword={{keyword}}&page={{next}}">Next</a>
                             </li>
 
                         </ul>
                     </div>
+                    {{/if}}
 
                 </div>
             </div>
-            <div class="new-news pb-3 pt-3">
-                <div class="card shadow mb-3">
-                    <div class="card-header">
-                        <i class="fa fa-newspaper-o" aria-hidden="true"></i> TIN XEM NHIỀU
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        {{#each this.topView}}
-                        <li class="list-group-item">
-                            <div class="top-views mb-2">
 
-                                <div class="infomation col-sm-12 float-left">
-                                    <p><b><a href="/single_post/{{id}}">{{title}}</a>
-                                    </p></b>
-                                </div>
-
-                                <div class="image col-sm-4 float-left" style="background-color:white">
-                                    <a href="/single_post/{{id}}"><img src="{{image}}" alt="" width="100%"
-                                            class="rounded"></a>
-                                </div>
-                                <div class="short_content col-sm-8 float-left">
-                                    <p>
-                                        {{short_content}}
-                                    </p>
-                                </div>
-                                <div class="date_view col-sm-12 float-left text-right">
-                                    <i class="fa fa-clock-o" aria-hidden="true">
-                                    </i> {{dateformat date_post "dd/mm/yyyy"}} |
-                                    <i class="fa fa-eye" aria-hidden="true"></i> {{views}}
-                                </div>
-                            </div>
-                        </li>
-                        {{/each}}
-
-                    </ul>
-
-                    <div class="row mx-auto {{showPageTopViews}}" id="{{showPageTopViews}}">
-                        <ul class="pagination text-center">
-
-                            <li class="page-item {{disPreTopViews}}">
-                                <a class="page-link "
-                                    href="?pagetv={{preTopViews}}{{#if vwpage}}&page={{vwpage}}{{/if}}"
-                                    tabindex="-1">Previous</a>
-                            </li>
-
-                            {{#each totalPageTopViews}}
-
-                            {{!-- {{#if disabled.status}} --}}
-                            <li class="page-item {{choosetv}}">
-                                {{!-- href="?{{#if status}}status={{status}}&{{/if}}page={{page}}">{{page}}</a> --}}
-                                <a class="page-link" href="?pagetv={{pageTopViews}}&page={{page}}">{{pageTopViews}}</a>
-                            </li>
-                            {{/each}}
-                            <li class="page-item {{disNextTopViews}}"><a class="page-link"
-                                    href="?pagetv={{nextTopViews}}&page={{vwpage}}">Next</a>
-                            </li>
-
-                        </ul>
-                    </div>
-                </div>
-            </div>
         </div>
         <div class="main-right col-sm-4">
-            <div class="hot-news pt-2 pb-3">
+            <div class="hot-news pt-2">
                 <div class="card shadow">
                     <div class="card-header col-sm-12">
                         <i class="fa fa-newspaper-o" aria-hidden="true"></i> TIN NỔI BẬT
                     </div>
                     <ul class="list-group list-group-flush col-sm-12">
-                        {{#each this.hotNews}}
+                        {{#each hotNews}}
                         <li class="list-group-item col-sm-12">
 
                             <div class="infomation col-sm-12 float-left">
@@ -156,7 +96,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="category pt-3 pb-3">
+            <div class="category pt-3">
                 <div class="card shadow">
                     <div class="card-header">
                         <i class="fa fa-list-alt" aria-hidden="true"></i>
@@ -171,7 +111,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="weather pt-3 mb-3">
+            <div class="weather pt-3 mb-5">
                 <div class="card shadow">
                     <div class="card-header">
                         <i class="fa fa-sun-o" aria-hidden="true"></i>
@@ -185,23 +125,15 @@
                 </div>
             </div>
 
-            <div class="tag pt-3 mb-5">
-                <div class="card shadow">
-                    <div class="card-header">
-                        <i class="fa fa-tags" aria-hidden="true"></i>
-                        Danh sách tag
-                    </div>
-                    <div class="card-body">
-                        {{#each index}}
-                        <p>{{tag}}</p>
-                        {{/each}}
-                    </div>
-                </div>
-            </div>
-
         </div>
     </div>
 </div>
 <script>
     document.getElementById("noShowPage").remove();
+</script>
+<script>
+    var node = document.createElement("p");
+    var text = document.createTextNode("Không tìm thấy bài viết nào!");
+    node.appendChild(text);
+    document.getElementById("notPost").appendChild(node);
 </script>

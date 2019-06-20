@@ -13,6 +13,7 @@ handlebars.registerHelper('if_eq', function (a, b, opts) {
 		return opts.inverse(this);
 });
 
+
 var bodyParser = require('body-parser');
 
 var app = express();
@@ -34,7 +35,8 @@ app.engine('handlebars', exphbs({
 	}
 }));
 
-
+var today = dateformat('yyyy-mm-dd');
+app.set('today',today);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -61,6 +63,9 @@ app.use('/admin', adminPage);
 
 var account = require('./routes/account');
 app.use('/account', account);
+
+var search = require('./routes/search');
+app.use('/search', search);
 
 app.use(function (req, res, next) {
 	res.status(404);

@@ -1,6 +1,7 @@
-body{
-    font-family: Quicksand,'Helvetica Neue',Helvetica,Roboto,Oxygen,Ubuntu,Cantarell,'Fira Sans','Droid Sans',sans-serif;
+body {
+    font-family: Quicksand, 'Helvetica Neue', Helvetica, Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', sans-serif;
 }
+
 a {
     color: black;
 }
@@ -12,12 +13,12 @@ a:hover {
 
 .category {
     font-size: 20px;
-    
 }
 
-.item-category{
+.item-category {
     text-align: center;
 }
+
 /* .item-category :hover {
     color: #6b9eef;
     
@@ -28,7 +29,8 @@ a:hover {
     padding: 15px;
     padding-left: 50px;
     /* font-family: Quicksand,'Helvetica Neue',Helvetica,Roboto,Oxygen,Ubuntu,Cantarell,'Fira Sans','Droid Sans',sans-serif; */
-/* } */ 
+
+/* } */
 
 footer {
     /* height: 100px; */
@@ -43,6 +45,7 @@ footer p {
     padding-bottom: 0px;
     font-size: 25px;
 }
+
 /* .backToTop a:hover{
     color: dimgray;
 } */
@@ -52,26 +55,78 @@ footer p {
     /* margin-bottom: 50px; */
     float: left;
 }
-.date_view{
+
+.date_view {
     padding: 10px;
 }
-.pagination{
+
+.pagination {
     margin: 10px;
 }
+
 /* .category{
     padding: 10px;
 } */
-.title{
+
+.title {
     margin-bottom: -8px;
     margin-top: -8px;
     font-weight: bold
 }
-.filter-status{
+
+.filter-status {
     margin-right: 5px;
 }
-.title-table{
+
+.title-table {
     width: 350px;
 }
-.button-table{
+
+.button-table {
     margin-right: 5px;
+}
+
+/**-------------------------------------------------------*/
+
+.searchbar {
+    margin-bottom: auto;
+    margin-top: auto;
+    height: 50px;
+    background-color: rgb(44, 154, 182);
+    border-radius: 30px;
+    padding: 10px;
+}
+
+.search_input {
+    color: white;
+    border: 0;
+    outline: 0;
+    background: none;
+    width: 0;
+    caret-color: transparent;
+    line-height: 30px;
+    transition: width 0.4s linear;
+}
+
+.searchbar:hover>.search_input {
+    padding: 0 10px;
+    width: 200px;
+    caret-color: red;
+    transition: width 0.4s linear;
+}
+
+.searchbar:hover>.search_icon {
+    background: white;
+    color: #e74c3c;
+}
+
+.search_icon {
+    height: 30px;
+    width: 30px;
+    float: right;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    color: rgb(0, 0, 0);
 }

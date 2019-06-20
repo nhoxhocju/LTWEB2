@@ -3,10 +3,15 @@ var express = require('express');
 var router = express.Router();
 
 var indexModel = require('../models/index.model');
+var qty = 1;
 router.get("/", (req, res) => {
-    var page = parseInt(req.query.page) || 1;
-    var pageTopViews = parseInt(req.query.pagetv) || 1;
-    var qty = 3;
+    response = {
+        page: parseInt(req.query.page) || 1,
+        pageTopViews : parseInt(req.query.pagetv) || 1,
+    }
+    var page = response.page;
+    var pageTopViews = response.pageTopViews;
+
     var start = (page - 1) * qty;
     var startPosTopViews = (pageTopViews - 1) * qty;
 
@@ -32,10 +37,10 @@ router.get("/", (req, res) => {
                             break;
                         }
                         if (page == i) {
-                            totalPage.push({ page: i, choose: 'active' });
+                            totalPage.push({ page: i, choose: 'active', pageTopViews : pageTopViews });
                             continue;
                         }
-                        totalPage.push({ page: i });
+                        totalPage.push({ page: i, pageTopViews : pageTopViews });
                     }
                     if (page == 1 || page == 2 || page == 3) {
                         totalPage.splice(5, numPage - 1);
@@ -70,10 +75,10 @@ router.get("/", (req, res) => {
                             break;
                         }
                         if (pageTopViews == i) {
-                            totalPageTopViews.push({ pageTopViews: i, choose: 'active' });
+                            totalPageTopViews.push({ pageTopViews: i, choosetv: 'active', page : page });
                             continue;
                         }
-                        totalPageTopViews.push({ pageTopViews: i });
+                        totalPageTopViews.push({ pageTopViews: i, page : page });
                     }
                     if (pageTopViews == 1 || pageTopViews == 2 || pageTopViews == 3) {
                         totalPageTopViews.splice(5, numPage - 1);
@@ -113,7 +118,7 @@ router.get("/", (req, res) => {
                         nextTopViews: nextTopViews,
                         disNextTopViews: disNextTopViews,
                         disPreTopViews: disPreTopViews,
-                        showPageTopViews: showPageTopViews
+                        showPageTopViews: showPageTopViews,
                     });
                 })
             })
@@ -122,7 +127,6 @@ router.get("/", (req, res) => {
             res.end('Lỗi');
         })
     })
-    // console.log(totalPage);
 })
 module.exports = router;
 

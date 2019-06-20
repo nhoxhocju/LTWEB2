@@ -20,7 +20,7 @@ var storage = multer.diskStorage({
     }
 });
 
-var qty = 1;
+var qty = 2;
 
 router.get('/', writterRetricted, (req, res, next) => {
 
@@ -34,9 +34,9 @@ router.get('/', writterRetricted, (req, res, next) => {
         panelModel.totalPostByAuthor(req.user.id).then(rows2 => {
             var totalPage = [];
             var showPage;
-
+            var notPost;
             if (rows.length == 0) {
-                var notPost = 'notPost';
+                notPost = 'notPost';
                 showPage = 'noShowPage';
             }
             rows.forEach(item => {
@@ -129,9 +129,9 @@ router.get('/filter', writterRetricted, (req, res, next) => {
         panelModel.totalPostByAuthorAndStatus(req.user.id, status).then(rows2 => {
             var totalPage = [];
             var showPage;
-
+            var notPost;
             if (rows.length == 0) {
-                var notPost = 'notPost';
+                notPost = 'notPost';
                 showPage = 'noShowPage';
             }
             rows.forEach(item => {
@@ -227,7 +227,7 @@ router.post('/insert', restricted, (req, res, next) => {
                 error: err.message
             });
         }
-        // var today = req.app.get('today');
+        var today = req.app.get('today');
 
         var entity = req.body;
         entity.image = '/public/image/' + req.file.filename;

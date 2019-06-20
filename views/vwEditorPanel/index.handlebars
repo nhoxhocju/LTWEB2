@@ -35,18 +35,26 @@
                             <th scope="col" class="text-center">ID</th>
                             <th scope="col">Tiêu đề bài viết</th>
                             <th scope="col" class="text-center">Tình trạng</th>
-                            <th scope="col" class="text-center"></th>
+                            <th scope="col" class="text-center">Kiểm duyệt</th>
                         </tr>
                     </thead>
                     <tbody>
+                        {{#if_eq notPost 'notPost'}}
+                        <tr>
+                            <th></th>
+                            <td class="card-body mt-5 {{notPost}}" id="{{notPost}}"></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        {{/if_eq}}
                         {{#each post}}
                         <tr>
                             <th class="text-center" scope="row">{{id}}</th>
                             <td class="title-table"><a href="/single_post/{{id}}">{{title}}</a></td>
                             <td class="text-center">{{status}}</td>
                             <td class="text-center">
-                                <a class="button-table btn btn-primary btn-sm text-right float-left"
-                                    href="/editorPage/approved/{{id}}" role="button" title="Sửa">
+                                <a class="button-table btn btn-primary btn-sm "
+                                    href="/editorPage/approved/{{id}}" role="button" title="Kiểm duyệt">
                                     <i class="fa fa-pencil" aria-hidden="true"></i>
                                 </a>
                                 {{#if_eq cause_not_approved ''}}
@@ -136,4 +144,10 @@
 </div>
 <script>
     document.getElementById("noShowPage").remove();
+</script>
+<script>
+    var node = document.createElement("p");
+    var text = document.createTextNode("Không tìm thấy bài viết nào!");
+    node.appendChild(text);
+    document.getElementById("notPost").appendChild(node);
 </script>

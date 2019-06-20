@@ -39,6 +39,15 @@
                         </tr>
                     </thead>
                     <tbody>
+                        {{#if_eq notPost 'notPost'}}
+                        <tr>
+                            <th></th>
+                            <td class="card-body mt-5 {{notPost}}" id="{{notPost}}"></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        {{/if_eq}}
                         {{#each post}}
                         <tr>
                             <th scope="row">{{id}}</th>
@@ -133,4 +142,10 @@
 </div>
 <script>
     document.getElementById("noShowPage").remove();
+</script>
+<script>
+    var node = document.createElement("p");
+    var text = document.createTextNode("Không tìm thấy bài viết nào!");
+    node.appendChild(text);
+    document.getElementById("notPost").appendChild(node);
 </script>

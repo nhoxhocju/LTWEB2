@@ -25,11 +25,10 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">Tiêu đề bài viết</th>
-                            <th scope="col">Tình trạng</th>
-                            <th scope="col"></th>
-                            <th scope="col">
+                            <th scope="col" class="text-center">ID</th>
+                            <th scope="col" class="">Tiêu đề bài viết</th>
+                            <th scope="col" class="text-center">Tình trạng</th>
+                            <th scope="col" class="text-center">Thao tác</th>
                                 {{!-- <a class="btn btn-outline-success btn-sm" href="/panel/insert" role="button"
                                     title="Thêm bài viết">
                                     <i class="fa fa-plus" aria-hidden="true"></i>
@@ -40,19 +39,24 @@
                         </tr>
                     </thead>
                     <tbody>
+                        {{#if_eq notPost 'notPost'}}
+                        <tr>
+                            <th></th>
+                            <td class="card-body mt-5 {{notPost}}" id="{{notPost}}"></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        {{/if_eq}}
                         {{#each panel}}
                         <tr>
-                            <th scope="row">{{id}}</th>
-                            <td><a href="/single_post/{{id}}">{{title}}</a></td>
-                            <td>{{status}}</td>
-                            <td>
+                            <th scope="row" class="text-center">{{id}}</th>
+                            <td class=""><a href="/single_post/{{id}}">{{title}}</a></td>
+                            <td class="text-center">{{status}}</td>
+                            <td class="text-center">
                                 <a class="btn btn-primary btn-sm text-right" href="/panel/edit/{{id}}" role="button"
                                     title="Sửa">
                                     <i class="fa fa-pencil" aria-hidden="true"></i>
                                 </a>
-
-                            </td>
-                            <td>
                                 {{#if_eq cause_not_approved ''}}
                                 {{else}}
                                 <a class="btn btn-danger btn-sm text-right " href="#" data-toggle="modal"
@@ -143,4 +147,10 @@
 </div>
 <script>
     document.getElementById("noShowPage").remove();
+</script>
+<script>
+    var node = document.createElement("p");
+    var text = document.createTextNode("Không tìm thấy bài viết nào!");
+    node.appendChild(text);
+    document.getElementById("notPost").appendChild(node);
 </script>

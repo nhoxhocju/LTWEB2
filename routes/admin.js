@@ -54,6 +54,11 @@ router.get("/", adminRestricted, (req, res) => {
             adminPanel.totalAllPost().then(rows2 => {
                 var totalPage = [];
                 var showPage;
+                var notPost;
+                if (rows.length == 0) {
+                    notPost = 'notPost';
+                    showPage = 'noShowPage';
+                }
                 var numPage = Math.ceil(rows2[0].totalAllPost / qty);
                 if (page > numPage && page != 1) {
                     return res.redirect('404');
@@ -100,6 +105,7 @@ router.get("/", adminRestricted, (req, res) => {
                     disPre: disPre,
                     disNext: disNext,
                     showPage: showPage,
+                    notPost: notPost,
                 });
             })
         })
@@ -132,9 +138,9 @@ router.get("/", adminRestricted, (req, res) => {
             adminPanel.totalPostByStatus(status).then(rows2 => {
                 var totalPage = [];
                 var showPage;
-
+                var notPost;
                 if (rows.length == 0) {
-                    var notPost = 'notPost';
+                    notPost = 'notPost';
                     showPage = 'noShowPage';
                 }
                 editStatus(rows);
@@ -194,6 +200,7 @@ router.get("/", adminRestricted, (req, res) => {
                     disNext: disNext,
                     showPage: showPage,
                     status: req.query.status,
+                    notPost: notPost,
                 });
             })
         })
