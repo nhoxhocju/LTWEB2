@@ -13,24 +13,11 @@
                 <div class="card-header">
                     <div class="row">
                         <div class="panel font-weight-bold col-sm-4 mt-2">Danh sách thể loại</div>
-                        <div class="panel font-weight-bold col-sm-3 mt-1">
+                        <div class="panel font-weight-bold col-sm-8 mt-1 text-right">
                             <a class="btn btn-outline-success btn-sm" href="/admin/addCat" role="button" title="Add">
                                 <i class="fa fa-plus" aria-hidden="true"></i>
                                 Add Category
                             </a>
-                        </div>
-                        <div class="filter col-sm-5 text-right">
-                            <form class="form-inline" action="/admin/filter" method="GET">
-                                <div class="form-group float-left text-right">
-                                    <select class="custom-select filter-status" id="status" name="status">
-                                        <option value="pendding">Chờ duyệt</option>
-                                        <option value="waitPublish">Chờ xuất bản</option>
-                                        <option value="publish">Đã xuất bản</option>
-                                        <option value="reject">Bị từ chối</option>
-                                    </select>
-                                </div>
-                                <button type="submit" class="btn btn-primary">Filter</button>
-                            </form>
                         </div>
                     </div>
                 </div>

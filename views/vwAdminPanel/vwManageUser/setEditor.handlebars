@@ -1,0 +1,67 @@
+<div class="container">
+    {{#if success}}
+    <div class="alert alert-success alert-dismissible fade show mt-5" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        {{success}}
+    </div>
+    {{/if}}
+    <div class="row">
+        <div class="col-sm-9">
+            <div class="card shadow mt-5 mb-5">
+
+                <div class="card-header">
+                    <div class="row">
+                        <div class="panel font-weight-bold col-sm-10 mt-2">{{#each user}} Biên tập viên {{name}} {{/each}}</div>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <form action="" method="POST">
+                        <div class="form-group">
+                            <label>Phân công thể loại quản lý ( Hiện tại đang quản lý thể loại: {{#each catUser}}{{name}} {{/each}})</label>
+                            <select required class="custom-select" id="manageCategory" name="manageCategory">
+                                <option value="default">Giữ nguyên, không thay đổi</option>
+                                {{#each listcat}}
+                                <option value="{{id}}">{{name}}</option>
+                                {{/each}}
+                                <option value="0">Không cho quản lý thể loại nào cả</option>
+                            </select>
+                        </div>
+                        <center><button type="submit" class="btn btn-primary">Phân công quản lý</button></center>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="card shadow mt-5 mb-5 ">
+                <div class="card-header text-center font-weight-bold">
+                    QUẢN TRỊ ADMIN
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item text-left"><a href="/admin"><i class="fa fa-home" aria-hidden="true"></i>
+                            Dashboard</a></li>
+                    <li class="list-group-item text-left"><a class="" href="/admin/listPost"><i class="fa fa-file-text"
+                                aria-hidden="true"></i> Quản lý bài viết</a></li>
+
+                    <li class="list-group-item text-left"><a class="" href="/admin/listCat"><i class="fa fa-list-alt"
+                                aria-hidden="true"></i>
+                            Quản lý thể loại</a></li>
+
+                    <li class="list-group-item text-left"><a class="" href="/admin/listTags"><i class="fa fa-tags"
+                                aria-hidden="true"></i>
+                            Quản lý tag</a></li>
+                    <li class="list-group-item text-left"><a class="" href="/admin/listUsers"><i class="fa fa-users"
+                                aria-hidden="true"></i>
+                            Quản lý thành viên</a></li>
+
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.getElementById("noShowPage").remove();
+</script>

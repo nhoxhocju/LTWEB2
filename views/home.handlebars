@@ -3,7 +3,7 @@
     <div class="row pt-3">
         <div class="main-left col-sm-8 float-left ">
 
-            <div class="new-news pb-3 pt-2">
+            <div class="pb-3 pt-2">
                 <div class="card shadow">
                     <div class="card-header">
                         <i class="fa fa-newspaper-o" aria-hidden="true"></i> TIN MỚI
@@ -65,7 +65,7 @@
 
                 </div>
             </div>
-            <div class="new-news pb-3 pt-3">
+            <div class="pb-3 pt-3">
                 <div class="card shadow mb-3">
                     <div class="card-header">
                         <i class="fa fa-newspaper-o" aria-hidden="true"></i> TIN XEM NHIỀU
@@ -181,6 +181,7 @@
                     <iframe frameborder="0" marginwidth="0" marginheight="0"
                         src="http://thienduongweb.com/tool/weather/?r=0&w=1&g=0&col=1&d=0" width="100%" height="169px"
                         scrolling="no"></iframe>
+
                 </div>
             </div>
 
@@ -190,9 +191,9 @@
                         <i class="fa fa-tags" aria-hidden="true"></i>
                         Danh sách tag
                     </div>
-                    <div class="card-body">
-                        {{#each index}}
-                        <p>{{tag}}</p>
+                    <div class="card-body row m-2">
+                        {{#each tags}}
+                         <a href="/tags/{{id}}">{{nameTag}}  , </a> 
                         {{/each}}
                     </div>
                 </div>

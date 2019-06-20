@@ -14,9 +14,9 @@ module.exports = {
         `);
     },
     selectPostByCategory: (idCat,pos, qty) =>{
-        return db.load(`select p.*, c.name from post p inner join category c where p.id_category = c.id and c.id = ${idCat} order by id desc limit ${pos},${qty}`);
+        return db.load(`select p.*, c.name from post p inner join category c where p.id_category = c.id and c.id = ${idCat} and p.status = 2 order by id desc limit ${pos},${qty}`);
     },
     totalPostOfCategory: idCat =>{
-        return db.load(`SELECT count(id) as totalPost FROM Post where id_category = ${idCat}`);
+        return db.load(`SELECT count(id) as totalPost FROM Post where id_category = ${idCat} and status = 2`);
     },
 };

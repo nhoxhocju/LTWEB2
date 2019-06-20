@@ -1,0 +1,119 @@
+<div class="container">
+    {{#if success}}
+    <div class="alert alert-success alert-dismissible fade show mt-5" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        {{success}}
+    </div>
+    {{/if}}
+    <div class="row">
+        <div class="col-sm-9">
+            <div class="card shadow mt-5 mb-5">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="panel font-weight-bold col-sm-4 mt-2">Danh sách thành viên</div>
+                        
+                    </div>
+                </div>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="text-center">ID</th>
+                            <th scope="col" class="text-center">Tên</th>
+                            <th scope="col" class="text-center">Chức vụ</th>
+                            <th scope="col" class="text-center">Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#if_eq notPost 'notPost'}}
+                        <tr>
+                            <th></th>
+                            <td class="card-body mt-5 {{notPost}}" id="{{notPost}}"></td>
+                            <td></td>
+                        </tr>
+                        {{/if_eq}}
+                        {{#each users}}
+                        <tr>
+                            <th scope="row" class="text-center">{{id}}</th>
+                            <td class="text-center"><a href="/tags/{{id}}">{{name}}</a></td>
+                            <td class="text-center">{{userRight}}</a></td>
+                            <td class="text-center">
+                                <a class="btn btn-primary btn-sm text-right" href="/admin/editUser/{{id}}" role="button"
+                                    title="Sửa">
+                                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                                </a>
+                                {{#if isEditor}}
+                                <a class=" btn btn-primary btn-sm text-right " href="/admin/setEditorCat/{{id}}"
+                                    role="button" title="Phân công thể loại">
+                                    <i class="fa fa-tasks" aria-hidden="true"></i>
+
+                                </a>
+                                {{/if}}
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+                <hr>
+                <div class="row mx-auto {{showPage}}" id="{{showPage}}">
+                    <ul class="pagination text-center">
+
+                        <li class="page-item {{disPre}}">
+                            <a class="page-link " href="?{{#if status}}status={{status}}&{{/if}}page={{pre}}"
+                                tabindex="-1">Previous</a>
+                        </li>
+
+                        {{#each totalPage}}
+
+                        <li class="page-item {{choose}}">
+
+                            <a class="page-link"
+                                href="?{{#if status}}status={{status}}&{{/if}}page={{page}}">{{page}}</a>
+                        </li>
+                        {{/each}}
+                        <li class="page-item {{disNext}}"><a class="page-link"
+                                href="?{{#if status}}status={{status}}&{{/if}}page={{next}}">Next</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="card shadow mt-5 mb-5 ">
+                <div class="card-header text-center font-weight-bold">
+                    QUẢN TRỊ ADMIN
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item text-left"><a href="/admin"><i class="fa fa-home" aria-hidden="true"></i>
+                            Dashboard</a></li>
+                    <li class="list-group-item text-left"><a class="" href="/admin/listPost"><i class="fa fa-file-text"
+                                aria-hidden="true"></i> Quản lý bài viết</a></li>
+
+                    <li class="list-group-item text-left"><a class="" href="/admin/listCat"><i class="fa fa-list-alt"
+                                aria-hidden="true"></i>
+                            Quản lý thể loại</a></li>
+
+                    <li class="list-group-item text-left"><a class="" href="/admin/listTags"><i class="fa fa-tags"
+                                aria-hidden="true"></i>
+                            Quản lý tag</a></li>
+                    <li class="list-group-item text-left"><a class="" href="/admin/listUsers"><i class="fa fa-users"
+                                aria-hidden="true"></i>
+                            Quản lý thành viên</a></li>
+
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.getElementById("noShowPage").remove();
+</script>
+<script>
+    var node = document.createElement("p");
+    var text = document.createTextNode("Không tìm thấy bài viết nào!");
+    node.appendChild(text);
+    document.getElementById("notPost").appendChild(node);
+</script>

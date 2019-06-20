@@ -64,7 +64,7 @@ router.get('/:id', (req, res) => {
                                 single: rows[0],
                                 view: rows2[0],
                                 comment: rows3,
-                                postLikeCat : rows5,
+                                postLikeCat: rows5,
                                 totalPage: totalPage,
                                 pre: pre,
                                 next: ne,
@@ -94,10 +94,9 @@ router.post('/:id', (req, res) => {
     entity.id_user = req.user.id;
     singlePost.addComment(entity, (err, post) => {
         if (err) return res.json({ error: err.message });
-    });
-    singlePost.selectAllComment(id_post, start, qty);
-    // var success = 'Thêm thành công bài viết!';
-    res.redirect('/single_post/' + id_post);
+    }).then(n => {
+        res.redirect('/single_post/' + id_post);
+    })
 });
 router.get('/', (req, res) => {
     res.render('404', {

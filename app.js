@@ -67,6 +67,9 @@ app.use('/account', account);
 var search = require('./routes/search');
 app.use('/search', search);
 
+var tags = require('./routes/tags');
+app.use('/tags', tags);
+
 app.use(function (req, res, next) {
 	res.status(404);
 	if (req.accepts('html')) {

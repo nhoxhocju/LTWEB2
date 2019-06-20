@@ -66,7 +66,6 @@ router.get('/', (req, res) => {
                 if (page == 1) {
                     var disPre = 'disabled';
                 }
-                console.log(numPage);
                 res.render('search', {
                     post: rows,
                     hotNews: rows3,

@@ -5,11 +5,11 @@ var router = express.Router();
 var categoryModel = require('../models/category.model');
 var postModel = require('../models/index.model');
 
+var qty = 4;
 router.get("/:idCat", (req, res) => {
 
     var idCategory = req.params.idCat;
     var page = parseInt(req.query.page) || 1;
-    var qty = 4;
     var start = (page - 1) * qty;
     categoryModel.selectPostByCategory(idCategory, start, qty).then(rows => {
         postModel.hotNews().then(rows2 => {
@@ -60,7 +60,7 @@ router.get("/:idCat", (req, res) => {
                     res.render('vwCategory/index', {
                         index: rows,
                         hotNews: rows2,
-                        category : rows4,
+                        category: rows4,
                         totalPage: totalPage,
                         pre: pre,
                         next: ne,
@@ -77,5 +77,6 @@ router.get("/:idCat", (req, res) => {
         })
     })
 })
+
 module.exports = router;
 

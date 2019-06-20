@@ -20,7 +20,7 @@ var storage = multer.diskStorage({
     }
 });
 
-var qty = 20;
+var qty = 2;
 
 router.get('/', writterRetricted, (req, res, next) => {
 
@@ -227,7 +227,7 @@ router.post('/insert', restricted, (req, res, next) => {
                 error: err.message
             });
         }
-        var today = req.app.get('today');
+        // var today = req.app.get('today');
 
         var entity = req.body;
         entity.image = '/public/image/' + req.file.filename;

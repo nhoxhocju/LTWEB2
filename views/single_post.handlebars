@@ -30,7 +30,7 @@
                     {{{single.content}}}
                 </div>
                 <div class="tag pl-5">
-                    <p>Nhãn Tag: {{single.nameTag}}</p>
+                    <p>Nhãn Tag: {{#if_eq single.nameTag 'default'}}{{else}}{{single.nameTag}}{{/if_eq}}</p>
                 </div>
             </li>
 

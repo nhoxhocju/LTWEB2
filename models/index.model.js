@@ -18,4 +18,7 @@ module.exports = {
     updateStatusPost: () =>{
         return db.updateDate('update post set status = 2 where DATEDIFF(NOW(), date_post) >= 0 and status = 1');
     },
+    updateUserVip: () =>{
+        return db.updateDate('update user set userRight = 0, expirationVIP = NULL  where DATEDIFF(NOW(), expirationVIP) >= 0 and userRight = 1');
+    },
 };

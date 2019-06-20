@@ -56,5 +56,41 @@ module.exports = {
     },
     findAllCommentOfCat: (idCat)=>{
         return db.load(`SELECT cm.id as idcm from post p inner join category c on p.id_category = c.id inner join comment cm on p.id = cm.id_post where c.id = ${idCat}`)
-    }
+    },
+    selectAllTag: (pos, qty) =>{
+        return db.load(`select * from tag where id != 1 order by id desc limit ${pos}, ${qty}`);
+    },
+    totalTag: ()=>{
+        return db.load(`select count(id) as totalTag from tag where id != 1 `);
+    },
+    addTag: entity=>{
+        return db.add('tag',entity);
+    },
+    editTag: (idTag, entity) =>{
+        return db.update('tag', 'id', entity, idTag);
+    },
+    editIdTagOfPost: (idTag) =>{
+        return db.updateDate(`update post set id_tag = 1 where id_tag = ${idTag}`);
+    },
+    deleteTagById: (idTag) =>{
+        return db.delete('tag', 'id', idTag);
+    },
+    selectAllUser: (pos, qty)=>{
+        return db.load(`select * from user limit ${pos}, ${qty}`);
+    },
+    totalAllUser: ()=>{
+        return db.load(`select count(id) as totalUser from user`);
+    },
+    findUserById: (idUser)=>{
+        return db.load(`select * from user where id = ${idUser}`);
+    },
+    editUserByIdUser: (idUser, entity)=>{
+        return db.update('user', 'id', entity, idUser);
+    },
+    selectAllCategory: () =>{
+        return db.load(`select * from category`);
+    },
+    findCatByUser: (id) =>{
+        return db.load(`select * from category where id = ${id}`);
+    },
 }
