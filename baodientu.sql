@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th6 20, 2019 lúc 08:59 PM
+-- Thời gian đã tạo: Th6 21, 2019 lúc 02:59 AM
 -- Phiên bản máy phục vụ: 10.1.38-MariaDB
 -- Phiên bản PHP: 7.1.27
 
@@ -223,7 +223,7 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id`, `email`, `password`, `name`, `birthday`, `userRight`, `manageCategory`, `expirationVIP`) VALUES
 (1, 'nhoxxinhtrai98@gmail.com', '$2b$10$yhTDbDOBCYqx5lZe0Fg9BuEMODvuUI4ERMQSXMW1vgvL4jh1AzIkK', 'Lương Trần Gia Bảo', '1998-04-30', 3, 1, NULL),
-(2, 'meomeo@gmail.com', '$2b$10$ociXiCMIbp3NmltD2S9DMekQ0UDsQtAfVBPqF4qJTMla50tvHY7va', 'Mèo Con', '2019-06-19', 2, 0, NULL),
+(2, 'meomeo@gmail.com', '$2b$10$tE8ektvuHqZFSs9F/Tx8Dulh/O8K4kZrDKduu3VYbJslQW7zVe2W6', 'Yoshin', '1998-04-30', 1, 0, '2019-06-25'),
 (3, 'admin@gmail.com', '$2b$10$3Rde9Ghocitj5t43npMjuumyu/c01AsAg0n9B58HpWQYw8NLo/cwm', 'Admin', '2019-06-10', 9, 0, NULL);
 
 --
