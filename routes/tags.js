@@ -3,10 +3,9 @@ var express = require('express');
 var router = express.Router();
 
 var indexModel = require('../models/index.model');
-// var categoryModel = require('../models/category.model');
 var tagsModel = require('../models/tags.model');
 
-var qty = 4;
+var qty = 10;
 
 router.get('/:id', (req, res) => {
     var idTag = req.params.id;
@@ -15,7 +14,6 @@ router.get('/:id', (req, res) => {
     tagsModel.selectPostByTag(idTag, start, qty).then(rows => {
         indexModel.hotNews().then(rows2 => {
             tagsModel.totalPostByTag(idTag).then(rows3 => {
-                // categoryModel.showCategoryById(idCategory).then(rows4 => {
                 var totalPage = [];
                 var showPage;
                 var numPage = Math.ceil(rows3[0].totalPost / qty);

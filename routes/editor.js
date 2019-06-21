@@ -7,7 +7,7 @@ var indexModel = require('../models/index.model');
 var handlebars = require('handlebars');
 handlebars.registerHelper('dateformat', require('helper-dateformat'))
 
-var qty = 1;
+var qty = 10;
 function editStatus(rows) {
     rows.forEach(item => {
         if (item.status == 0) {
@@ -231,12 +231,18 @@ router.post('/approved/:id', editorRestricted, (req, res, next) => {
             delete entity.image;
             if (entity.cause_not_approved.length != 0)
                 entity.cause_not_approved = '';
+            if(entity.hotNews == null){
+                entity.hotNews = 0;
+            }
+            console.log(entity.hotNews);
         }
         if (entity.reject) {
             entity.status = -1;
             if (entity.cause_not_approved.length == 0)
                 entity.cause_not_approved = 'Người kiểm duyệt không đưa ra lý do';
             delete entity.image;
+            entity.hotNews = 0;
+            delete entity.id_tag;
         }
 
 

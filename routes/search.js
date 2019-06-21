@@ -4,7 +4,7 @@ var adminRestricted = require('../middlewares/adminRestricted');
 var indexModel = require('../models/index.model');
 var searchModel = require('../models/search.model');
 
-var qty = 1;
+var qty = 10;
 router.get('/', (req, res) => {
     response = {
         keyword: req.query.keyword,

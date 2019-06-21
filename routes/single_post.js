@@ -8,10 +8,18 @@ var singlePost = require('../models/single_post.model');
 router.get('/:id', (req, res) => {
     var id = req.params.id;
     var page = parseInt(req.query.page) || 1;
-    var qty = 2;
+    var qty = 10;
     var start = (page - 1) * qty;
     singlePost.updateView(id);
     singlePost.single(id).then(rows => {
+        if(rows.length ==0){
+            return res.redirect('/404');
+        }
+        if(rows[0].hotNews === 1){
+            if(!req.user || (req.user.userRight != 1 && req.user.userRight != 2 && req.user.userRight != 3 && req.user.userRight != 9)){
+                return res.render('premium');
+            }
+        }
         singlePost.selectView(id).then(rows2 => {
             singlePost.selectAllComment(id, start, qty).then(rows3 => {
                 singlePost.totalCommentOfPost(id).then(rows4 => {

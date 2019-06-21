@@ -5,7 +5,7 @@ var router = express.Router();
 var categoryModel = require('../models/category.model');
 var postModel = require('../models/index.model');
 
-var qty = 4;
+var qty = 10;
 router.get("/:idCat", (req, res) => {
 
     var idCategory = req.params.idCat;

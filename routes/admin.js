@@ -6,7 +6,7 @@ var editorModel = require('../models/editor.model');
 var indexModel = require('../models/index.model');
 
 
-var qty = 3;
+var qty = 10;
 function editStatus(rows) {
     rows.forEach(item => {
         if (item.status == 0) {
@@ -239,6 +239,9 @@ router.post('/approved/:id', adminRestricted, (req, res, next) => {
             delete entity.image;
             if (entity.cause_not_approved.length != 0)
                 entity.cause_not_approved = '';
+            if (entity.hotNews == null) {
+                entity.hotNews = 0;
+            }
         }
         if (entity.reject) {
             entity.status = -1;
@@ -246,6 +249,7 @@ router.post('/approved/:id', adminRestricted, (req, res, next) => {
                 entity.cause_not_approved = 'Người kiểm duyệt không đưa ra lý do';
             delete entity.image;
             delete entity.id_tag;
+            entity.hotNews = 0;
         }
 
         entity.id_category = rows[0].id;
@@ -572,7 +576,7 @@ router.get('/editUser/:id', adminRestricted, (req, res) => {
                         if (err) return res.json({ error: err.message });
                     });
                     expirationVIP.push({ expDate: diffDays });
-                    
+
                 }
             }
             if (item.userRight === 2)
@@ -601,13 +605,13 @@ router.post('/editUser/:id', adminRestricted, (req, res) => {
     if (entity.userRight == 1 && entity.expirationVIP == null) {
         var date = new Date();
         var oneDay = 24 * 60 * 60 * 1000;
-        var day = date.setTime(date.getTime()+(7*(oneDay)));
+        var day = date.setTime(date.getTime() + (7 * (oneDay)));
         var expDate = new Date(day);
         entity.expirationVIP = expDate;
-    }else if(entity.userRight != 1 && entity.userRight != 'default'){
+    } else if (entity.userRight != 1 && entity.userRight != 'default') {
         entity.expirationVIP = null;
     }
-    if (entity.userRight == 'default'){
+    if (entity.userRight == 'default') {
         delete entity.userRight;
         delete entity.expirationVIP;
     }

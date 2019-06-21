@@ -5,8 +5,13 @@ module.exports = {
         // return db.load('select c.name, c.id as idCat, p.* from category c inner join post p on c.id = p.id_category where p.id = ' + id);
         return db.load(`select c.name, c.id as idCat, p.*, t.nameTag, u.name as nameAuthor 
         from post p inner join category c on p.id_category = c.id inner join tag t on p.id_tag = t.id inner join user u on p.id_author = u.id 
-        where p.id = ${id}`);
+        where p.id = ${id} and status = 2`);
     },
+    // singleGuest : id =>{
+    //     return db.load(`select c.name, c.id as idCat, p.*, t.nameTag, u.name as nameAuthor 
+    //     from post p inner join category c on p.id_category = c.id inner join tag t on p.id_tag = t.id inner join user u on p.id_author = u.id 
+    //     where p.id = ${id} and status = 2`);
+    // },
     updateView: id =>{
         // var views = views + 1;
         return db.updateView('UPDATE post SET views = views + 1 WHERE id = ' +id);

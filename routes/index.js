@@ -6,7 +6,7 @@ var indexModel = require('../models/index.model');
 var editorModel = require('../models/editor.model');
 
 //qty = so luong bai
-var qty = 3;
+var qty = 10;
 
 router.get("/", (req, res) => {
     response = {
